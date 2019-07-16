@@ -1,0 +1,11 @@
+// ==================================================
+// IMAGE
+// ==================================================
+
+.fit-cover {
+  @include image-fit(cover)
+}
+
+.fit-contain {
+  @include image-fit(contain)
+}

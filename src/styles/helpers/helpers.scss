@@ -1,0 +1,35 @@
+// Helpers
+@import "variables";
+@import "mixins";
+
+@import "colors";
+@import "spacing";
+@import "radius";
+@import "icons";
+@import "text";
+@import "fonts";
+@import "image";
+@import "size";
+@import "border";
+@import "cursor";
+@import "display";
+
+// Generate Helpers
+@each $key, $utility in $utilities {
+  $values: map-get($utility, values);
+
+  @each $class-modifier, $value in $values {
+    $properties: map-get($utility, property);
+    $property-class-prefix: map-get($utility, class);
+
+    @if type-of($properties) == "string" {
+      $properties: append((), $properties);
+    }
+
+    .#{$property-class-prefix + '-' + $class-modifier} {
+      @each $property in $properties {
+        #{$property}: $value !important;
+      }
+    }
+  }
+}

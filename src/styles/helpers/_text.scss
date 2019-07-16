@@ -1,0 +1,45 @@
+// ==================================================
+// TEXT
+// ==================================================
+
+.text-ellipsis,
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+$text: (
+  "text-transform": (
+    property: text-transform,
+    class: text,
+    values: (
+      capitalize: capitalize,
+      uppercase: uppercase,
+      lowercase: lowercase,
+    )
+  ),
+  "text-align": (
+    property: text-align,
+    class: text,
+    values: (
+      center: center,
+      right: uppercase,
+      left: left,
+    )
+  ),
+  "white-space": (
+    property: white-space,
+    class: text,
+    values: (
+      wrap: normal,
+      nowrap: nowrap,
+    )
+  )
+);
+
+$utilities: map-merge(
+  $text,
+  $utilities
+);

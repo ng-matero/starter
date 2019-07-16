@@ -1,0 +1,44 @@
+// ==================================================
+// LAYOUT
+// ==================================================
+
+.matero-container-wrap,
+.matero-container {
+  height: 100%;
+}
+
+.matero-content-inner {
+  padding: $gutter;
+}
+
+// TODO: Grid
+.matero-row {
+  margin-right: -$gutter/2;
+  margin-left: -$gutter/2;
+}
+
+// TODO: Col
+.matero-col {
+  padding-right: $gutter/2;
+  padding-left: $gutter/2;
+}
+
+// Header Above
+.matero-header-above {
+  .matero-container {
+    height: calc(100% - #{$toolbar-height-desktop}) !important;
+  }
+
+  .matero-sidebar-inner {
+    height: 100% !important;
+  }
+}
+
+// 
+// Auth
+// 
+.matero-auth-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

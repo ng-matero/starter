@@ -1,0 +1,31 @@
+{
+  "menu": [{
+      "state": "dashboard",
+      "name": "Dashboard",
+      "type": "link",
+      "icon": "dashboard"
+    },
+    {
+      "state": "sessions",
+      "name": "Sessions",
+      "type": "sub",
+      "icon": "question_answer",
+      "children": [{
+          "state": "403",
+          "name": "403",
+          "type": "link"
+        },
+        {
+          "state": "404",
+          "name": "404",
+          "type": "link"
+        },
+        {
+          "state": "500",
+          "name": "500",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}

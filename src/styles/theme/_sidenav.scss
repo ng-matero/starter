@@ -1,0 +1,221 @@
+// ==================================================
+// SIDENAV
+// ==================================================
+
+.matero-sidenav {
+  position: absolute;
+  overflow-x: hidden;
+  width: $sidenav-width;
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+  border-width: 0;
+  transition: width .4s cubic-bezier(.25, .8, .25, 1); // Only set width property
+
+  .matero-sidemenu {
+    width: $sidenav-width;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &.submenu {
+      max-height: 0;
+      padding-top: 0;
+      overflow: hidden;
+      transform: translateZ(0) !important;
+      transition: max-height .4s cubic-bezier(.35, 0, .25, 1);
+
+      .matero-sidemenu-item {
+        border-left-width: 0;
+      }
+    }
+
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 48px;
+      padding: 0 16px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, .87);
+    }
+
+    &.level-0>li>a>.menu-name {
+      margin-right: 5px;
+    }
+
+    &.level-1>li>a {
+      padding-left: 50px;
+    }
+
+    &.level-2>li>a {
+      padding-left: 64px;
+    }
+
+    .menu-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 16px;
+      font-size: 18px;
+      line-height: 18px;
+    }
+
+    .menu-name,
+    .menu-badge {
+      transition: opacity .4s cubic-bezier(.25, .8, .25, 1);
+    }
+
+    .menu-caret {
+      display: block;
+      float: right;
+      margin-left: 0.3125rem;
+      text-align: center;
+      transition: transform .3s cubic-bezier(.7, 0, .3, 1);
+    }
+
+    .open>.matero-sidemenu-toggle>.menu-caret {
+      transform: rotate(-180deg);
+    }
+
+    .menu-label,
+    .menu-badge {
+      display: inline-block;
+      min-width: 18px;
+      padding: 3px 5px;
+      font-size: 75%;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      color: #fff;
+    }
+
+    .menu-label {
+      border-radius: 2px;
+    }
+
+    .menu-badge {
+      border-radius: 16px;
+    }
+  }
+
+  .matero-sidemenu-item {
+    display: block;
+    height: auto;
+    padding: 0;
+
+    &:hover {
+      background: $sidenav-item-hover;
+    }
+
+    &.open {
+      background: rgba(0, 0, 0, .02);
+
+      >.matero-sidemenu {
+        max-height: 2000px;
+      }
+    }
+
+    &.active {
+      box-shadow: 3px 0 0 0 $sidenav-item-active inset;
+
+      >a {
+        color: $sidenav-item-active
+      }
+    }
+  }
+}
+
+.matero-sidebar-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: $toolbar-height-desktop;
+  padding: 0 10px;
+  color: #444;
+  background: #fff;
+  overflow: hidden;
+}
+
+.matero-sidebar-inner {
+  height: calc(100% - #{$toolbar-height-desktop});
+  overflow: auto;
+}
+
+// User panel
+.matero-user-panel-avatar {
+  transition: transform .4s cubic-bezier(.25, .8, .25, 1);
+}
+
+.matero-user-panel-name,
+.matero-user-panel-email,
+.matero-user-panel-icons {
+  opacity: 1;
+  transition: opacity .4s cubic-bezier(.25, .8, .25, 1);
+}
+
+.matero-user-panel-icons {
+  .mat-icon-button {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+}
+
+// Layout control
+.matero-sidenav-collapsed {
+  .matero-sidenav {
+    width: $sidenav-collapsed-width;
+
+    &:hover {
+      width: $sidenav-width;
+
+      .menu-name,
+      .menu-label,
+      .menu-badge,
+      .menu-caret,
+      .matero-user-panel-name,
+      .matero-user-panel-email,
+      .matero-user-panel-icons {
+        opacity: 1;
+      }
+
+      .matero-user-panel-avatar {
+        transform: scale(1)
+      }
+    }
+
+    .menu-name,
+    .menu-label,
+    .menu-badge,
+    .menu-caret,
+    .matero-user-panel-name,
+    .matero-user-panel-email,
+    .matero-user-panel-icons {
+      opacity: 0;
+    }
+
+    .matero-user-panel-avatar {
+      transform: scale(.5)
+    }
+  }
+
+  .matero-content {
+    margin-left: $sidenav-collapsed-width !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .matero-sidebar-header {
+    height: $toolbar-height-mobile;
+  }
+
+  .matero-sidebar-inner {
+    height: calc(100% - #{$toolbar-height-mobile});
+  }
+}

@@ -1,0 +1,65 @@
+// ==================================================
+// HEADER
+// ==================================================
+
+.matero-header {
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.matero-toolbar {
+  background: #fff;
+  color: rgba(0, 0, 0, .76);
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+
+  .badge {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    min-width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 1.2;
+    border-radius: 10px;
+  }
+}
+
+
+// Layout control
+.matero-header-fixed {
+  .matero-header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+// Header user
+.matero-user {
+  display: inline-block;
+  padding: 0 8px;
+  color: #333;
+  font-size: 14px;
+  line-height: 40px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, .05);
+  }
+}
+
+.matero-user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  vertical-align: middle;
+}
+
+.matero-user-name {
+  margin-left: 8px;
+  vertical-align: middle;
+}
