@@ -1,4 +1,5 @@
 // Helpers
+@import "functions";
 @import "variables";
 @import "mixins";
 
@@ -13,6 +14,7 @@
 @import "border";
 @import "cursor";
 @import "display";
+@import "alignment";
 
 // Generate Helpers
 @each $key, $utility in $utilities {
