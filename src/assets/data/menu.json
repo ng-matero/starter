@@ -3,7 +3,11 @@
       "state": "dashboard",
       "name": "Dashboard",
       "type": "link",
-      "icon": "dashboard"
+      "icon": "dashboard",
+      "badge": {
+        "color": "red-500",
+        "value": "5"
+      }
     },
     {
       "state": "sessions",

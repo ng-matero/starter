@@ -1,17 +1,16 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <title>NgMatero</title>
+  <title>NgTest</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="assets/fonts/Material_Icons.css" rel="stylesheet">
   <style type="text/css">
-    .loader {
+    .global-loader {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,7 +23,7 @@
       background-color: #fff;
     }
 
-    .loader h1 {
+    .global-loader h1 {
       font-family: "Helvetica Neue", Helvetica, sans-serif;
       font-weight: normal;
       font-size: 24px;
@@ -52,16 +51,10 @@
         background-position: -750% 0;
       }
     }
-
-  </style>
+    </style>
 </head>
-
 <body>
-  <app-root>
-    <div class="loader">
-      <h1>LOADING</h1>
-    </div>
-  </app-root>
+  <app-root>    <div class="global-loader"><h1>LOADING</h1></div>
+</app-root>
 </body>
-
 </html>
