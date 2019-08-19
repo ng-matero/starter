@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:prod": "ng build --prod --build-optimizer",
-    "lint:ts": "tslint -p src/tsconfig.app.json -c tslint.json 'src/**/*.ts'",
+    "lint:ts": "tslint -p tsconfig.app.json -c tslint.json 'src/**/*.ts'",
     "lint:scss": "stylelint --syntax scss 'src/**/*.scss' --fix'",
     "hmr": "ng serve -c=hmr --disable-host-check"
   },
