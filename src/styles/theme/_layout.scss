@@ -8,6 +8,7 @@
 }
 
 .matero-content {
+  position: relative;
   padding: $gutter;
 }
 
@@ -34,9 +35,9 @@
   }
 }
 
-// 
+//
 // Auth
-// 
+//
 .matero-auth-container {
   position: relative;
   width: 100%;

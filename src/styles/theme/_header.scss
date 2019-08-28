@@ -10,12 +10,15 @@
   .matero-toolbar {
     padding: 0;
   }
+
+  // Layout control
+  .matero-header-fixed & {
+    position: sticky;
+    top: 0;
+  }
 }
 
 .matero-toolbar {
-  background: #fff;
-  color: rgba(0, 0, 0, .76);
-
   @include mat-elevation(2);
 
   .badge {
@@ -27,6 +30,14 @@
   }
 }
 
+// Colorful
+.matero-header-white {
+  .matero-toolbar,
+  .matero-topmenu {
+    background-color: white;
+  }
+}
+
 .matero-hamburger.mat-button {
   height: 100%;
   padding: 0;
@@ -35,14 +46,5 @@
 @include bp-lt(tiny) {
   .matero-hamburger.mat-button {
     min-width: 15%;
-  }
-}
-
-
-// Layout control
-.matero-header-fixed {
-  .matero-header {
-    position: sticky;
-    top: 0;
   }
 }
