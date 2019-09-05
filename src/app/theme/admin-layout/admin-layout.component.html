@@ -4,7 +4,8 @@
   <ng-progress></ng-progress>
 
   <mat-sidenav-container class="matero-container" autosize autoFocus>
-    <mat-sidenav #sidenav class="matero-sidenav" [mode]="isOver ? 'over' : 'side'"
+    <mat-sidenav #sidenav class="matero-sidenav"
+                 [mode]="isOver ? 'over' : 'side'"
                  [opened]="!isOver"
                  (openedChange)="openedChange($event)">
       <app-sidebar (toggleCollapsed)="toggleCollapsed()" [showToggle]="!isOver">
@@ -16,8 +17,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="matero-content-wrap" #content>
-      <app-header #header class="matero-header" (toggleSidenav)="sidenav.toggle()"
-                  (toggleSidenavRight)="sidenavRight.toggle()" [showToggle]="!sidenavCollapsed">
+      <app-header #header class="matero-header"
+                  (toggleSidenav)="sidenav.toggle()"
+                  (toggleSidenavRight)="sidenavRight.toggle()"
+                  [showToggle]="!sidenavCollapsed">
       </app-header>
 
       <div class="matero-content">
