@@ -1,5 +1,4 @@
-<div class="matero-container-wrap matero-header-white"
-     dir="ltr"
+<div class="matero-container-wrap matero-header-white" dir="ltr"
      [ngClass]="{'matero-sidenav-collapsed': sidenavCollapsed}">
   <ng-progress></ng-progress>
 
@@ -8,8 +7,7 @@
                  [mode]="isOver ? 'over' : 'side'"
                  [opened]="!isOver"
                  (openedChange)="openedChange($event)">
-      <app-sidebar (toggleCollapsed)="toggleCollapsed()" [showToggle]="!isOver">
-      </app-sidebar>
+      <app-sidebar (toggleCollapsed)="toggleCollapsed()" [showToggle]="!isOver"></app-sidebar>
     </mat-sidenav>
 
     <mat-sidenav #sidenavRight position="end" mode="over" opened="false">
