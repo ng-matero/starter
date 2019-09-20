@@ -25,15 +25,20 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   options = this.settings.getOptions();
   sidenavCollapsed = false;
 
-  // Demo purposes only
-  @HostBinding('class.theme-dark') get themeDark() {
-    return this.options.theme === 'dark';
-  }
-
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
   get isOver(): boolean {
     return this.mobileQuery.matches;
+  }
+
+  contentWidthFix = true;
+  @HostBinding('class.matero-content-width-fix') get widthFix() {
+    return this.contentWidthFix && this.options.navPos === 'side' && !this.isOver;
+  }
+
+  // Demo purposes only
+  @HostBinding('class.theme-dark') get themeDark() {
+    return this.options.theme === 'dark';
   }
 
   constructor(
@@ -43,6 +48,9 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     private settings: SettingsService,
     private overlay: OverlayContainer
   ) {
+    // Set dir attr on body
+    document.body.dir = this.options.dir;
+
     this.mobileQuery = this.media.matchMedia(`(max-width: ${WIDTH_BREAKPOINT})`);
     this.mobileQueryListener = () => this.cdr.detectChanges();
     /**
@@ -60,7 +68,9 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => (this.contentWidthFix = false));
+  }
 
   ngOnDestroy() {
     /**
@@ -88,7 +98,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   receiveOptions(options: AppSettings): void {
     this.options = options;
     this.setTheme(options);
-    this.setBodyAttr(options);
+    this.setBodyDir(options);
   }
   setTheme(options: AppSettings) {
     if (options.theme === 'dark') {
@@ -97,7 +107,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
       this.overlay.getContainerElement().classList.remove('theme-dark');
     }
   }
-  setBodyAttr(options: AppSettings) {
+  setBodyDir(options: AppSettings) {
     if (options.dir === 'rtl') {
       document.body.dir = 'rtl';
     } else {

@@ -1,5 +1,5 @@
 {
-  "name": "ng-matero-starter",
+  "name": "ng-test",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -15,17 +15,17 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.1.1",
-    "@angular/cdk": "~8.1.4",
-    "@angular/common": "~8.1.1",
-    "@angular/compiler": "~8.1.1",
-    "@angular/core": "~8.1.1",
+    "@angular/animations": "~8.2.0",
+    "@angular/cdk": "^8.1.3",
+    "@angular/common": "~8.2.0",
+    "@angular/compiler": "~8.2.0",
+    "@angular/core": "~8.2.0",
     "@angular/flex-layout": "^8.0.0-beta.26",
-    "@angular/forms": "~8.1.1",
-    "@angular/material": "^8.1.4",
-    "@angular/platform-browser": "~8.1.1",
-    "@angular/platform-browser-dynamic": "~8.1.1",
-    "@angular/router": "~8.1.1",
+    "@angular/forms": "~8.2.0",
+    "@angular/material": "^8.1.3",
+    "@angular/platform-browser": "~8.2.0",
+    "@angular/platform-browser-dynamic": "~8.2.0",
+    "@angular/router": "~8.2.0",
     "@ng-select/ng-select": "^2.20.3",
     "@ngx-formly/core": "^5.4.0",
     "@ngx-formly/material": "^5.4.0",
@@ -34,18 +34,18 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "hammerjs": "^2.0.8",
-    "ng-matero": "^0.2.0",
+    "ng-matero": "~0.4.2",
     "ngx-toastr": "^10.0.4",
     "rxjs": "~6.4.0",
     "screenfull": "^4.2.1",
-    "tslib": "^1.9.0",
+    "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.801.1",
-    "@angular/cli": "~8.1.1",
-    "@angular/compiler-cli": "~8.1.1",
-    "@angular/language-service": "~8.1.1",
+    "@angular-devkit/build-angular": "~0.802.2",
+    "@angular/cli": "~8.2.2",
+    "@angular/compiler-cli": "~8.2.0",
+    "@angular/language-service": "~8.2.0",
     "@angularclass/hmr": "^2.1.3",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
@@ -69,6 +69,6 @@
     "stylelint-scss": "^3.9.2",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.5.3"
   }
 }
