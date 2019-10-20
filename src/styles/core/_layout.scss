@@ -12,19 +12,19 @@
   padding: $gutter;
 }
 
-// TODO: Grid
+// TODO: Grid row
 .matero-row {
   margin-right: -$gutter/2;
   margin-left: -$gutter/2;
 }
 
-// TODO: Col
+// TODO: Grid col
 .matero-col {
   padding-right: $gutter/2;
   padding-left: $gutter/2;
 }
 
-// Header above
+// Layout control
 .matero-header-above {
   .matero-container {
     height: calc(100% - #{$toolbar-height-desktop}) !important;
@@ -38,11 +38,11 @@
 // Fix the init content width
 .matero-content-width-fix {
   .matero-content-wrap {
-    margin-left: 240px;
+    margin-left: $sidenav-width !important;
 
     [dir='rtl'] & {
       margin-left: auto;
-      margin-right: 240px;
+      margin-right: $sidenav-width !important;
     }
   }
 }

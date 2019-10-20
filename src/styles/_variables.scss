@@ -1,25 +1,3 @@
-@import '~@angular/material/theming';
-
-@include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-
-
-//
-// Light style
-//
-$primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-pink, A200, A100, A400);
-
-$theme: mat-light-theme($primary, $accent);
-
-
-
-
-$config: mat-typography-config();
-
 //
 // Matero Variables
 //
@@ -58,12 +36,11 @@ $font-size-h6: 16px !default;
 // Define the minimum dimensions at which your layout will change,
 // adapting to different screen sizes, for use in media queries.
 $breakpoints: (
-  xsmall: 320px,
-  teeny: 480px,
-  tiny: 600px,
-  small: 650px,
-  medium: 800px,
-  big: 1000px
+  xsmall: 0,
+  small: 600px,
+  medium: 960px,
+  large: 1280px,
+  xlarge: 1920px
 ) !default;
 
 //

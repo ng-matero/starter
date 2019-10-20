@@ -1,25 +1,29 @@
-<div class="matero-container-wrap matero-header-white"
+<div class="matero-container-wrap matero-header-fixed matero-header-white"
      dir="ltr"
-     [ngClass]="{'matero-sidenav-collapsed': sidenavCollapsed}">
+     [ngClass]="{'matero-sidenav-collapsed': options.sidenavCollapsed}">
   <ng-progress></ng-progress>
 
   <mat-sidenav-container class="matero-container" autosize autoFocus>
     <mat-sidenav #sidenav class="matero-sidenav"
                  [mode]="isOver ? 'over' : 'side'"
-                 [opened]="!isOver"
-                 (openedChange)="openedChange($event)">
-      <app-sidebar (toggleCollapsed)="toggleCollapsed()" [showToggle]="!isOver"></app-sidebar>
+                 [opened]="options.sidenavOpened && !isOver"
+                 (openedChange)="sidenavOpenedChange($event)"
+                 (closedStart)="sidenavCloseStart()">
+      <app-sidebar (toggleCollapsed)="toggleCollapsed()"
+                   [toggleChecked]="options.sidenavCollapsed"
+                   [showToggle]="!isOver">
+      </app-sidebar>
     </mat-sidenav>
 
-    <mat-sidenav #sidenavRight position="end" mode="over" opened="false">
-      <app-sidebar-right></app-sidebar-right>
+    <mat-sidenav #sidenavNotice position="end" mode="over" opened="false">
+      <app-sidebar-notice></app-sidebar-notice>
     </mat-sidenav>
 
     <mat-sidenav-content class="matero-content-wrap" #content>
       <app-header #header class="matero-header"
                   (toggleSidenav)="sidenav.toggle()"
-                  (toggleSidenavRight)="sidenavRight.toggle()"
-                  [showToggle]="!sidenavCollapsed">
+                  (toggleSidenavNotice)="sidenavNotice.toggle()"
+                  [showToggle]="!options.sidenavCollapsed">
       </app-header>
 
       <div class="matero-content">

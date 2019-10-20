@@ -3,9 +3,9 @@
 // ==================================================
 
 .matero-header {
-  display: block;
   position: relative;
-  z-index: 9;
+  z-index: 201;
+  display: block;
 
   .matero-toolbar {
     padding: 0;
@@ -51,7 +51,7 @@
   height: 100%;
   padding: 0;
 
-  @include bp-lt(tiny) {
+  @include bp-lt(small) {
     & {
       min-width: 15%;
     }
