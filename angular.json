@@ -72,8 +72,8 @@
               "browserTarget": "ng-matero-starter:build:production"
             },
             "hmr": {
-              "browserTarget": "ng-matero-starter:build:hmr",
-              "hmr": true
+              "hmr": true,
+              "browserTarget": "ng-matero-starter:build:hmr"
             }
           }
         },
