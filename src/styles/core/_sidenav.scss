@@ -39,7 +39,6 @@
 .matero-sidenav {
   position: absolute;
   overflow-x: hidden;
-  width: $sidenav-width;
   transition: swift-ease-out(width); // Only set width property
 
   @include mat-elevation(2);
@@ -176,7 +175,7 @@
     }
   }
 
-  .matero-sidebar-inner {
+  .matero-sidebar-main {
     height: calc(100% - #{$toolbar-height-desktop});
     overflow: auto;
 

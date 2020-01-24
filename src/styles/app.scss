@@ -13,6 +13,18 @@ $primary: mat-palette($mat-indigo);
 $accent: mat-palette($mat-pink, A200, A100, A400);
 $theme: mat-light-theme($primary, $accent);
 
+//////////////////////////////////////////////////////////////////////////////////////
+// When we use the Schematics (`ng add`) to start, the following variables will be  //
+// used to create a dark theme! This strategy will not generate redundant codes.    //
+//////////////////////////////////////////////////////////////////////////////////////
+
+//
+// Dark style
+//
+// $primary: mat-palette($mat-blue);
+// $accent: mat-palette($mat-amber, A200, A100, A400);
+// $theme: mat-dark-theme($primary, $accent);
+
 $config: mat-typography-config();
 
 // Include theme styles for core and each component used in your app.
