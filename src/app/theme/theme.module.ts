@@ -15,6 +15,7 @@ import { NotificationComponent } from './admin-layout/header/notification.compon
 import { UserComponent } from './admin-layout/header/user.component';
 import { TopmenuComponent } from './admin-layout/topmenu/topmenu.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { TranslateComponent } from './admin-layout/header/translate.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
     UserComponent,
     TopmenuComponent,
     AuthLayoutComponent,
+    TranslateComponent
   ],
   imports: [SharedModule],
 })
