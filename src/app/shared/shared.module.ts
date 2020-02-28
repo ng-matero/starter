@@ -16,10 +16,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { ErrorCodeComponent } from './components/error-code/error-code.component';
-import { EasyProgressComponent } from './components/easy-progress/easy-progress.component';
-import { EasyDialogComponent } from './components/easy-dialog/easy-dialog.component';
-import { EasyTableComponent } from './components/easy-table/easy-table.component';
-import { EasyTableCellComponent } from './components/easy-table/easy-table-cell.component';
 
 const THIRD_MODULES = [
   MaterialModule,
@@ -30,21 +26,13 @@ const THIRD_MODULES = [
   NgSelectModule,
   FormlyMaterialModule,
 ];
-const COMPONENTS = [
-  BreadcrumbComponent,
-  PageHeaderComponent,
-  ErrorCodeComponent,
-  EasyProgressComponent,
-  EasyDialogComponent,
-  EasyTableComponent,
-  EasyTableCellComponent,
-];
-const COMPONENTS_DYNAMIC = [EasyDialogComponent];
+const COMPONENTS = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent];
+const COMPONENTS_DYNAMIC = [];
 const DIRECTIVES = [];
 const PIPES = [];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES, ...COMPONENTS_DYNAMIC],
+  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, ...DIRECTIVES, ...PIPES],
   imports: [
     CommonModule,
     FormsModule,

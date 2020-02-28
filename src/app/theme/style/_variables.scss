@@ -1,0 +1,56 @@
+//
+// Matero Variables
+//
+
+// Layout
+$gutter: 16px !default;
+
+// Sidenav
+$sidenav-width: 240px !default;
+$sidenav-collapsed-width: 50px !default;
+$sidenav-width-mobile: 280px !default;
+
+// Toolbar
+$toolbar-height-desktop: 64px !default;
+$toolbar-height-mobile: 56px !default;
+
+// Topmenu
+$topmenu-sticky-position-desktop: $toolbar-height-desktop;
+$topmenu-sticky-position-mobile: $toolbar-height-mobile;
+
+// Typography
+$font-size-base: 1rem !default;
+$small-font-size: .875em !default;
+
+$font-family-sans-serif: Roboto, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
+$font-family-monospace: 'Roboto Mono', monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+
+// Links
+$link-color: map-get($mat-blue, A400) !default;
+$link-decoration: none !default;
+
+// Code
+$code-color: map-get($mat-red, A400);
+$code-font-size: $small-font-size !default;
+
+// Border
+$boder-color: rgba(0, 0, 0, .12);
+
+// Breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+$breakpoints: (
+  xsmall: 0,
+  small:  600px,
+  medium: 960px,
+  large:  1280px,
+  xlarge: 1920px
+) !default;
+
+// Scrollbar
+//
+// If you need a customized thin scrollbar, you can add the element class
+// to the following variable (for example `$scrollbar-selectors: '.a', '.b', '.c';`)
+$scrollbar-selectors: '.mtx-data-grid-content';

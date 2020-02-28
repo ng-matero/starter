@@ -1,0 +1,61 @@
+// ==================================================
+// REBOOT
+// ==================================================
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  line-height: normal;
+  font-family: $font-family-base;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+dl,
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: $link-color;
+  text-decoration: $link-decoration;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+}
+
+code {
+  font-size: $code-font-size;
+  color: $code-color;
+  word-break: break-word;
+}

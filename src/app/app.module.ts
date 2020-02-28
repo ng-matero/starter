@@ -1,7 +1,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -11,6 +10,7 @@ import { AppComponent } from './app.component';
 
 import { DefaultInterceptor } from '@core';
 import { StartupService } from '@core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
@@ -19,12 +19,12 @@ export function StartupServiceFactory(startupService: StartupService) {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
     ThemeModule,
     RoutesModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
