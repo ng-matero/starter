@@ -11,7 +11,8 @@
 //
 $primary: mat-palette($mat-indigo);
 $accent: mat-palette($mat-pink, A200, A100, A400);
-$theme: mat-light-theme($primary, $accent);
+$warn: mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent, $warn);
 
 $config: mat-typography-config();
 
