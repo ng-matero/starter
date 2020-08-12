@@ -1,0 +1,67 @@
+@import '../style/variables';
+
+.matero-topmenu {
+  position: sticky;
+  z-index: 200;
+  padding: 8px;
+
+  @include mat-elevation(2);
+
+  .mat-icon {
+    margin-top: -2px;
+  }
+
+  .mat-icon.menu-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    font-size: 18px;
+    line-height: 18px;
+
+    [dir='rtl'] & {
+      margin-left: 8px;
+      margin-right: auto;
+    }
+  }
+
+  .mat-icon.menu-caret {
+    margin-right: -8px;
+
+    [dir='rtl'] & {
+      margin-left: -8px;
+      margin-right: auto;
+    }
+  }
+
+  .menu-label,
+  .menu-badge {
+    margin-left: 8px;
+    font-size: 12px;
+
+    [dir='rtl'] & {
+      margin-left: auto;
+      margin-right: 8px;
+    }
+  }
+
+  .menu-badge {
+    border-radius: 10px;
+  }
+
+  .mat-tab-nav-bar,
+  .mat-tab-header {
+    border-bottom: none;
+  }
+}
+
+.mat-menu-item {
+  .menu-name {
+    margin-right: 8px;
+    vertical-align: middle;
+
+    [dir='rtl'] & {
+      margin-left: 8px;
+      margin-right: auto;
+    }
+  }
+}

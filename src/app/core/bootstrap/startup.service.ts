@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { MenuService } from './menu.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class StartupService {
-  constructor(private menuService: MenuService, private http: HttpClient) {}
+  constructor(private menu: MenuService, private http: HttpClient) {}
 
   load(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -15,14 +18,17 @@ export class StartupService {
         .pipe(
           catchError(res => {
             resolve();
-            return res;
+            return throwError(res);
           })
         )
         .subscribe(
           (res: any) => {
-            this.menuService.set(res.menu);
+            this.menu.recursMenuForTranslation(res.menu, 'menu');
+            this.menu.set(res.menu);
           },
-          () => {},
+          () => {
+            reject();
+          },
           () => {
             resolve();
           }

@@ -1,6 +1,4 @@
-//
-// Matero Variables
-//
+@import '~@angular/material/theming';
 
 // Layout
 $gutter: 16px !default;
@@ -22,20 +20,9 @@ $topmenu-sticky-position-mobile: $toolbar-height-mobile;
 $font-size-base: 1rem !default;
 $small-font-size: .875em !default;
 
-$font-family-sans-serif: Roboto, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
+$font-family-sans-serif: 'Roboto', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
 $font-family-monospace: 'Roboto Mono', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
-
-// Links
-$link-color: map-get($mat-blue, A400) !default;
-$link-decoration: none !default;
-
-// Code
-$code-color: map-get($mat-red, A400);
-$code-font-size: $small-font-size !default;
-
-// Border
-$boder-color: rgba(0, 0, 0, .12);
 
 // Breakpoints
 //
@@ -49,8 +36,29 @@ $breakpoints: (
   xlarge: 1920px
 ) !default;
 
-// Scrollbar
-//
-// If you need a customized thin scrollbar, you can add the element class
-// to the following variable (for example `$scrollbar-selectors: '.a', '.b', '.c';`)
-$scrollbar-selectors: '.mtx-data-grid-content';
+// Material colors
+$mat-colors: (
+  red: $mat-red,
+  pink: $mat-pink,
+  purple: $mat-purple,
+  deep-purple: $mat-deep-purple,
+  indigo: $mat-indigo,
+  blue: $mat-blue,
+  light-blue: $mat-light-blue,
+  cyan: $mat-cyan,
+  teal: $mat-teal,
+  green: $mat-green,
+  light-green: $mat-light-green,
+  lime: $mat-lime,
+  yellow: $mat-yellow,
+  amber: $mat-amber,
+  orange: $mat-orange,
+  deep-orange: $mat-deep-orange,
+  brown: $mat-brown,
+  gray: $mat-gray,
+  blue-gray: $mat-blue-gray,
+  white: white,
+  black: black,
+  light: $light-primary-text,
+  dark: $dark-primary-text,
+);

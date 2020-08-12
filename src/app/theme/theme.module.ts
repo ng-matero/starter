@@ -2,36 +2,42 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { SidebarComponent } from './admin-layout/sidebar/sidebar.component';
-import { UserPanelComponent } from './admin-layout/sidebar/user-panel.component';
-import { SidemenuComponent } from './admin-layout/sidemenu/sidemenu.component';
-import { AccordionAnchorDirective } from './admin-layout/sidemenu/accordionanchor.directive';
-import { AccordionDirective } from './admin-layout/sidemenu/accordion.directive';
-import { AccordionLinkDirective } from './admin-layout/sidemenu/accordionlink.directive';
-import { SidebarNoticeComponent } from './admin-layout/sidebar-notice/sidebar-notice.component';
-import { HeaderComponent } from './admin-layout/header/header.component';
-import { BrandingComponent } from './admin-layout/header/branding.component';
-import { NotificationComponent } from './admin-layout/header/notification.component';
-import { UserComponent } from './admin-layout/header/user.component';
-import { TopmenuComponent } from './admin-layout/topmenu/topmenu.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { UserPanelComponent } from './sidebar/user-panel.component';
+import { SidemenuComponent } from './sidemenu/sidemenu.component';
+import { AccordionDirective } from './sidemenu/accordion.directive';
+import { AccordionItemDirective } from './sidemenu/accordionItem.directive';
+import { AccordionAnchorDirective } from './sidemenu/accordionanchor.directive';
+import { SidebarNoticeComponent } from './sidebar-notice/sidebar-notice.component';
+
+import { TopmenuComponent } from './topmenu/topmenu.component';
+
+import { HeaderComponent } from './header/header.component';
+import { BrandingComponent } from './header/widgets/branding.component';
+import { NotificationComponent } from './header/widgets/notification.component';
+import { TranslateComponent } from './header/widgets/translate.component';
+import { UserComponent } from './header/widgets/user.component';
+
 
 @NgModule({
   declarations: [
     AdminLayoutComponent,
+    AuthLayoutComponent,
     SidebarComponent,
     UserPanelComponent,
     SidemenuComponent,
-    AccordionAnchorDirective,
     AccordionDirective,
-    AccordionLinkDirective,
+    AccordionItemDirective,
+    AccordionAnchorDirective,
     SidebarNoticeComponent,
+    TopmenuComponent,
     HeaderComponent,
     BrandingComponent,
     NotificationComponent,
+    TranslateComponent,
     UserComponent,
-    TopmenuComponent,
-    AuthLayoutComponent,
   ],
   imports: [SharedModule],
 })

@@ -6,7 +6,10 @@ import {
   HostBinding,
   ElementRef,
   Inject,
+  Optional,
+  ViewEncapsulation,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -24,6 +27,8 @@ const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
+  styleUrls: ['./admin-layout.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdminLayoutComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
@@ -31,7 +36,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 
   options = this.settings.getOptions();
 
-  private layoutChanges: Subscription;
+  private layoutChangesSubscription: Subscription;
 
   private isMobileScreen = false;
   get isOver(): boolean {
@@ -62,9 +67,13 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     private overlay: OverlayContainer,
     private element: ElementRef,
     private settings: SettingsService,
+    @Optional() @Inject(DOCUMENT) private document: Document,
     @Inject(Directionality) public dir: AppDirectionality
   ) {
-    this.layoutChanges = this.breakpointObserver
+    this.dir.value = this.options.dir;
+    this.document.body.dir = this.dir.value;
+
+    this.layoutChangesSubscription = this.breakpointObserver
       .observe([MOBILE_MEDIAQUERY, TABLET_MEDIAQUERY, MONITOR_MEDIAQUERY])
       .subscribe(state => {
         // SidenavOpened must be reset true when layout changes
@@ -88,7 +97,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.layoutChanges.unsubscribe();
+    this.layoutChangesSubscription.unsubscribe();
   }
 
   toggleCollapsed() {
@@ -115,7 +124,8 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     this.resetCollapsedState();
   }
 
-  // Demo purposes only
+  /** Demo purposes only */
+
   receiveOptions(options: AppSettings): void {
     this.options = options;
     this.toggleDarkTheme(options);
@@ -134,5 +144,6 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 
   toggleDirection(options: AppSettings) {
     this.dir.value = options.dir;
+    this.document.body.dir = this.dir.value;
   }
 }

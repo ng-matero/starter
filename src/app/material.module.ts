@@ -41,6 +41,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
+// 3rd library
+import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
+
+import { materialProviders } from './material-config';
 
 @NgModule({
   exports: [
@@ -61,6 +68,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatChipsModule,
     MatStepperModule,
     MatDatepickerModule,
+    MatMomentDateModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
@@ -86,6 +94,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    MatMomentDatetimeModule,
+    MatDatetimepickerModule,
   ],
+  providers: [materialProviders],
 })
 export class MaterialModule {}

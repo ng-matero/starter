@@ -1,0 +1,59 @@
+// Reboot
+
+body {
+  margin: 0;
+  line-height: normal;
+  font-family: $font-family-base;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html,
+body {
+  position: relative; // 1
+  height: 100%;
+  overflow: auto; // 2
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+dl,
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+}
+
+code {
+  padding: 3px;
+  font-size: 90%;
+  word-break: break-word;
+}
+
+a {
+  text-decoration: none;
+}

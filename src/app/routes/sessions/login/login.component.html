@@ -1,32 +1,38 @@
-<div class="w-full h-full" fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card class="mat-elevation-z4 m-b-0" style="max-width: 380px;">
-    <mat-card-title class="text-center m-b-24">Welcome Back!</mat-card-title>
-    <mat-card-content>
-      <form class="matero-form-horizontal" [formGroup]="reactiveForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput placeholder="Simple placeholder" formControlName="username" required>
-          <mat-error *ngIf="reactiveForm.get('username').invalid">Please enter username</mat-error>
-        </mat-form-field>
+<div class="w-full h-full" fxLayout="row wrap">
+  <mat-card class="mat-elevation-z4 m-auto" style="max-width: 380px;">
+    <mat-card-title class="text-center m-b-24">{{'login.title' | translate}}!</mat-card-title>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput placeholder="Simple placeholder" type="password"
-                 formControlName="password" required>
-          <mat-error *ngIf="reactiveForm.get('password').invalid">Please enter password</mat-error>
-        </mat-form-field>
+    <form class="form-field-full" [formGroup]="loginForm">
 
-        <div class="m-y-16" fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-checkbox>Remember Me</mat-checkbox>
-          <a href="">Forgot Password?</a>
-        </div>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'login.username' | translate}}: ng-matero</mat-label>
+        <input matInput placeholder="ng-matero" formControlName="username" required>
+        <mat-error *ngIf="username.invalid">
+          {{'login.please_enter' | translate}} <strong>ng-matero</strong>
+        </mat-error>
+      </mat-form-field>
 
-        <button class="w-full" mat-raised-button color="primary" (click)="login()"
-                [disabled]="reactiveForm.invalid">Save</button>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'login.password' | translate}}: ng-matero</mat-label>
+        <input matInput placeholder="ng-matero" type="password"
+               formControlName="password" required>
+        <mat-error *ngIf="password.invalid">
+          {{'login.please_enter' | translate}} <strong>ng-matero</strong>
+        </mat-error>
+      </mat-form-field>
 
-        <div class="m-t-16">Don't have an account? <a routerLink="/auth/register">Click here to
-            create one</a></div>
-      </form>
-    </mat-card-content>
+      <div class="m-y-16" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-checkbox>{{'login.remember_me' | translate}}</mat-checkbox>
+      </div>
+
+      <button class="w-full" mat-raised-button color="primary"
+              [disabled]="loginForm.invalid"
+              (click)="login()">{{'login.login' | translate}}</button>
+
+      <div class="m-t-16">{{'login.have_no_account' | translate}}?
+        <a routerLink="/auth/register">{{'login.create_one' | translate}}</a>
+      </div>
+    </form>
+
   </mat-card>
 </div>
