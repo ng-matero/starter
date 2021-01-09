@@ -12,6 +12,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
@@ -38,28 +39,28 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 
   private layoutChangesSubscription: Subscription;
 
-  private isMobileScreen = false;
   get isOver(): boolean {
     return this.isMobileScreen;
   }
+  private isMobileScreen = false;
 
-  private contentWidthFix = true;
-  @HostBinding('class.matero-content-width-fix') get isContentWidthFix() {
+  @HostBinding('class.matero-content-width-fix') get contentWidthFix() {
     return (
-      this.contentWidthFix &&
+      this.isContentWidthFixed &&
       this.options.navPos === 'side' &&
       this.options.sidenavOpened &&
       !this.isOver
     );
   }
+  private isContentWidthFixed = true;
 
-  private collapsedWidthFix = true;
-  @HostBinding('class.matero-sidenav-collapsed-fix') get isCollapsedWidthFix() {
+  @HostBinding('class.matero-sidenav-collapsed-fix') get collapsedWidthFix() {
     return (
-      this.collapsedWidthFix &&
+      this.isCollapsedWidthFixed &&
       (this.options.navPos === 'top' || (this.options.sidenavOpened && this.isOver))
     );
   }
+  private isCollapsedWidthFixed = true;
 
   constructor(
     private router: Router,
@@ -81,19 +82,20 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 
         this.isMobileScreen = state.breakpoints[MOBILE_MEDIAQUERY];
         this.options.sidenavCollapsed = state.breakpoints[TABLET_MEDIAQUERY];
-        this.contentWidthFix = state.breakpoints[MONITOR_MEDIAQUERY];
+        this.isContentWidthFixed = state.breakpoints[MONITOR_MEDIAQUERY];
       });
 
     // TODO: Scroll top to container
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        this.content.scrollTo({ top: 0 });
-      }
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(e => {
+      this.content.scrollTo({ top: 0 });
     });
+
+    // Initialize project theme with options
+    this.receiveOptions(this.options);
   }
 
   ngOnInit() {
-    setTimeout(() => (this.contentWidthFix = this.collapsedWidthFix = false));
+    setTimeout(() => (this.isContentWidthFixed = this.isCollapsedWidthFixed = false));
   }
 
   ngOnDestroy() {
@@ -113,14 +115,14 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   sidenavCloseStart() {
-    this.contentWidthFix = false;
+    this.isContentWidthFixed = false;
   }
 
   sidenavOpenedChange(isOpened: boolean) {
     this.options.sidenavOpened = isOpened;
     this.settings.setNavState('opened', isOpened);
 
-    this.collapsedWidthFix = !this.isOver;
+    this.isCollapsedWidthFixed = !this.isOver;
     this.resetCollapsedState();
   }
 

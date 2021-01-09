@@ -1,27 +1,57 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MenuService } from '@core';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { NavigationEnd, Router, RouterLinkActive } from '@angular/router';
+import { Menu, MenuService } from '@core';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+export interface TopmenuState {
+  active: boolean;
+  route: string;
+}
 
 @Component({
   selector: 'app-topmenu',
+  host: {
+    class: 'matero-topmenu',
+  },
   templateUrl: './topmenu.component.html',
   styleUrls: ['./topmenu.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class TopmenuComponent implements OnInit {
-  menus = this._menu.getAll();
+export class TopmenuComponent implements OnDestroy {
+  menu$ = this.menuSrv.getAll();
+  buildRoute = this.menuSrv.buildRoute;
 
-  constructor(public _menu: MenuService) {}
+  menuList: Menu[] = [];
+  menuStates: TopmenuState[] = [];
 
-  ngOnInit() {}
+  private menuSubscription: Subscription;
+  private routerSubscription: Subscription;
 
-  // Delete empty values and rebuild route
-  buildRoute(routes: string[]) {
-    let route = '';
-    routes.forEach(item => {
-      if (item && item.trim()) {
-        route += '/' + item.replace(/^\/+|\/+$/g, '');
-      }
+  constructor(public menuSrv: MenuService, private router: Router) {
+    this.menuSubscription = this.menu$.subscribe(res => {
+      this.menuList = res;
+      this.menuList.forEach(item => {
+        this.menuStates.push({
+          active: this.router.url.split('/').includes(item.route),
+          route: item.route,
+        });
+      });
     });
-    return route;
+  }
+
+  ngOnDestroy() {
+    this.menuSubscription.unsubscribe();
+    this.routerSubscription?.unsubscribe();
+  }
+
+  onRouteChange(rla: RouterLinkActive, index: number) {
+    this.routerSubscription?.unsubscribe();
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(e => {
+        this.menuStates.forEach(item => (item.active = false));
+        setTimeout(() => (this.menuStates[index].active = rla.isActive));
+      });
   }
 }

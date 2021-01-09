@@ -4,12 +4,17 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { MenuService } from './menu.service';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StartupService {
-  constructor(private menu: MenuService, private http: HttpClient) {}
+  constructor(
+    private menu: MenuService,
+    private http: HttpClient,
+    private settings: SettingsService
+  ) {}
 
   load(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -17,7 +22,7 @@ export class StartupService {
         .get('assets/data/menu.json?_t=' + Date.now())
         .pipe(
           catchError(res => {
-            resolve();
+            resolve(null);
             return throwError(res);
           })
         )
@@ -25,13 +30,18 @@ export class StartupService {
           (res: any) => {
             this.menu.recursMenuForTranslation(res.menu, 'menu');
             this.menu.set(res.menu);
+
+            // Refresh user info
+            // In a real app, user data will be fetched from API
+            this.settings.setUser({
+              id: 1,
+              name: 'Zongbin',
+              email: 'nzb329@163.com',
+              avatar: './assets/images/avatar.jpg',
+            });
           },
-          () => {
-            reject();
-          },
-          () => {
-            resolve();
-          }
+          () => reject(),
+          () => resolve(null)
         );
     });
   }

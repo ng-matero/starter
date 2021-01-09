@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-initial-file": {
+    "starter": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-initial-file",
+            "outputPath": "dist/starter",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -74,23 +74,23 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-initial-file:build",
+            "browserTarget": "starter:build",
             "proxyConfig": "proxy.config.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-initial-file:build:production"
+              "browserTarget": "starter:build:production"
             },
             "hmr": {
               "hmr": true,
-              "browserTarget": "ng-initial-file:build:hmr"
+              "browserTarget": "starter:build:hmr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-initial-file:build"
+            "browserTarget": "starter:build"
           }
         },
         "test": {
@@ -127,18 +127,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-initial-file:serve"
+            "devServerTarget": "starter:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-initial-file:serve:production"
+              "devServerTarget": "starter:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ng-initial-file",
+  "defaultProject": "starter",
   "cli": {
     "analytics": false
   }

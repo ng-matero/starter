@@ -18,3 +18,15 @@ $config: mat-typography-config();
 
 @include angular-material-theme($theme);
 @include matero-admin-theme($theme);
+
+//
+// Demo purposes only
+//
+.theme-dark {
+  $primary: mat-palette($mat-blue, 700, 300, 900);
+  $accent:  mat-palette($mat-amber, A200, A100, A400);
+  $theme: mat-dark-theme($primary, $accent);
+
+  @include angular-material-theme($theme);
+  @include matero-admin-theme($theme);
+}
