@@ -17,10 +17,12 @@ import { TopmenuPanelComponent } from './topmenu/topmenu-panel.component';
 
 import { HeaderComponent } from './header/header.component';
 import { BrandingComponent } from './header/widgets/branding.component';
+import { GithubButtonComponent } from './header/widgets/github.component';
 import { NotificationComponent } from './header/widgets/notification.component';
 import { TranslateComponent } from './header/widgets/translate.component';
 import { UserComponent } from './header/widgets/user.component';
 
+import { CustomizerComponent } from './customizer/customizer.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,11 @@ import { UserComponent } from './header/widgets/user.component';
     TopmenuPanelComponent,
     HeaderComponent,
     BrandingComponent,
+    GithubButtonComponent,
     NotificationComponent,
     TranslateComponent,
     UserComponent,
+    CustomizerComponent,
   ],
   imports: [SharedModule],
 })

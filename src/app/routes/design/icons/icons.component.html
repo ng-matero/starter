@@ -1,0 +1,19 @@
+<page-header class="bg-purple-500"></page-header>
+
+<ng-container *ngFor=" let group of icons|keyvalue; trackBy: trackByIcon">
+  <mat-card>
+    <mat-card-title class="mat-h1 f-w-300 text-capitalize m-b-16 text-gray-500">{{group.key}}
+    </mat-card-title>
+    <mat-card-content>
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex.gt-md="11.11" fxFlex.md="20" fxFlex.sm="25" fxFlex.xs="33.33"
+             *ngFor="let icon of group.value">
+          <div class="text-center">
+            <mat-icon class="icon-36">{{icon}}</mat-icon>
+            <p class="f-s-12">{{icon}}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

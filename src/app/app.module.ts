@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from './core/core.module';
 import { ThemeModule } from './theme/theme.module';
@@ -19,12 +20,12 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
 import { httpInterceptorProviders } from '@core/interceptors';
 import { appInitializerProviders } from '@core/initializers';
 import { FormlyConfigModule } from './formly-config.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
     ThemeModule,
@@ -39,7 +40,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         deps: [HttpClient],
       },
     }),
-    BrowserAnimationsModule,
   ],
   providers: [httpInterceptorProviders, appInitializerProviders],
   bootstrap: [AppComponent],
