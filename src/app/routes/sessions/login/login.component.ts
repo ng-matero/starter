@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SettingsService, StartupService, TokenService } from '@core';
+import { AuthService } from '@core/authentication/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +12,15 @@ import { SettingsService, StartupService, TokenService } from '@core';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private token: TokenService,
-    private startup: StartupService,
-    private settings: SettingsService
-  ) {
+  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) {}
+
+  ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.pattern('ng-matero')]],
-      password: ['', [Validators.required, Validators.pattern('ng-matero')]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      remember_me: [false],
     });
   }
-
-  ngOnInit() {}
 
   get username() {
     return this.loginForm.get('username');
@@ -33,24 +30,27 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+  get rememberMe() {
+    return this.loginForm.get('remember_me');
+  }
+
   login() {
-    const { token, uid, username } = { token: 'ng-matero-token', uid: 1, username: 'ng-matero' };
-    // Set user info
-    this.settings.setUser({
-      id: uid,
-      name: 'Zongbin',
-      email: 'nzb329@163.com',
-      avatar: './assets/images/avatar.jpg',
-    });
-    // Set token info
-    this.token.set({ token, uid, username });
-    // Regain the initial data
-    this.startup.load().then(() => {
-      let url = this.token.referrer!.url || '/';
-      if (url.includes('/auth')) {
-        url = '/';
-      }
-      this.router.navigateByUrl(url);
-    });
+    this.auth
+      .login(this.username.value, this.password.value, this.rememberMe.value)
+      .pipe(filter(authenticated => authenticated))
+      .subscribe(
+        () => this.router.navigateByUrl('/'),
+        (error: HttpErrorResponse) => {
+          if (error.status === 422) {
+            const form = this.loginForm;
+            const errors = error.error.errors;
+            Object.keys(errors).forEach(key => {
+              form.get(key === 'email' ? 'username' : key)?.setErrors({
+                remote: errors[key][0],
+              });
+            });
+          }
+        }
+      );
   }
 }

@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuService, SettingsService, TokenService, User } from '@core';
+import { MenuService } from '@core';
+import { AuthService } from '@core/authentication/auth.service';
+import { debounceTime, tap } from 'rxjs/operators';
+import { User } from '@core/authentication/interface';
 
 @Component({
   selector: 'app-user',
@@ -30,22 +33,27 @@ import { MenuService, SettingsService, TokenService, User } from '@core';
     </mat-menu>
   `,
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   user: User;
 
   constructor(
     private router: Router,
-    private settings: SettingsService,
-    private token: TokenService,
-    private menu: MenuService
-  ) {
-    this.user = settings.user;
+    private menu: MenuService,
+    private auth: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.auth
+      .user()
+      .pipe(
+        tap(user => (this.user = user)),
+        debounceTime(10)
+      )
+      .subscribe(() => this.changeDetectorRef.detectChanges());
   }
 
   logout() {
-    this.token.clear();
-    this.settings.removeUser();
-    this.menu.reset();
-    this.router.navigateByUrl('/auth/login');
+    this.auth.logout().subscribe();
   }
 }

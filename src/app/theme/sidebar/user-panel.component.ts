@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { SettingsService, User } from '@core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@core/authentication/auth.service';
+import { User } from '@core/authentication/interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-panel',
@@ -10,23 +12,29 @@ import { SettingsService, User } from '@core';
       <h5 class="matero-user-panel-email">{{ user.email }}</h5>
       <div class="matero-user-panel-icons">
         <a routerLink="/profile/overview" mat-icon-button>
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon class="icon-20">account_circle</mat-icon>
         </a>
         <a routerLink="/profile/settings" mat-icon-button>
-          <mat-icon>settings</mat-icon>
+          <mat-icon class="icon-20">settings</mat-icon>
         </a>
-        <a routerLink="/auth/login" mat-icon-button>
-          <mat-icon>exit_to_app</mat-icon>
+        <a (click)="logout()" mat-icon-button>
+          <mat-icon class="icon-20">exit_to_app</mat-icon>
         </a>
       </div>
     </div>
   `,
   styleUrls: ['./user-panel.component.scss'],
 })
-export class UserPanelComponent {
+export class UserPanelComponent implements OnInit {
   user: User;
 
-  constructor(settings: SettingsService) {
-    this.user = settings.user;
+  constructor(private router: Router, private auth: AuthService) {}
+
+  ngOnInit(): void {
+    this.auth.user().subscribe(user => (this.user = user));
+  }
+
+  logout() {
+    this.auth.logout().subscribe();
   }
 }

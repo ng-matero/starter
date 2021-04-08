@@ -1,16 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FormsSelectEditComponent } from './edit.component';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 describe('EditComponent', () => {
   let component: FormsSelectEditComponent;
   let fixture: ComponentFixture<FormsSelectEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormsSelectEditComponent ]
-    })
-    .compileComponents();
+      imports: [MatDialogModule],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} },
+      ],
+      declarations: [FormsSelectEditComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

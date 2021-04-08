@@ -1,12 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 import { MtxGridColumn } from '@ng-matero/extensions';
 import { TablesRemoteDataService } from './remote-data.service';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-tables-remote-data',
   templateUrl: './remote-data.component.html',
+  styleUrls: ['./remote-data.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [TablesRemoteDataService],
 })
@@ -20,10 +21,10 @@ export class TablesRemoteDataComponent implements OnInit {
     { header: 'Owner', field: 'owner.login' },
     { header: 'Owner Avatar', field: 'owner.avatar_url', type: 'image' },
     { header: 'Description', field: 'description', width: '300px' },
-    { header: 'Stars', field: 'stargazers_count' },
-    { header: 'Forks', field: 'forks_count' },
-    { header: 'Score', field: 'score' },
-    { header: 'Issues', field: 'open_issues' },
+    { header: 'Stars', field: 'stargazers_count', type: 'number' },
+    { header: 'Forks', field: 'forks_count', type: 'number' },
+    { header: 'Score', field: 'score', type: 'number' },
+    { header: 'Issues', field: 'open_issues', type: 'number' },
     { header: 'Language', field: 'language' },
     { header: 'License', field: 'license.name' },
     { header: 'Home Page', field: 'homepage', type: 'link' },
@@ -49,7 +50,7 @@ export class TablesRemoteDataComponent implements OnInit {
     sort: 'stars',
     order: 'desc',
     page: 0,
-    per_page: 5,
+    per_page: 10,
   };
 
   get params() {
@@ -66,12 +67,23 @@ export class TablesRemoteDataComponent implements OnInit {
 
   getData() {
     this.isLoading = true;
-    this.remoteSrv.getData(this.params).subscribe((res: any) => {
-      this.list = res.items;
-      this.total = res.total_count;
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    });
+
+    this.remoteSrv.getData(this.params).subscribe(
+      res => {
+        this.list = res.items;
+        this.total = res.total_count;
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      () => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      () => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
+    );
   }
 
   getNextPage(e: PageEvent) {
