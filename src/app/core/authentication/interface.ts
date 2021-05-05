@@ -11,11 +11,15 @@ export interface Token {
   access_token?: string;
   token?: string;
   token_type?: string;
+  expires_in?: number;
 }
 
-export const guest: User = {
-  id: null,
-  name: 'unknown',
-  email: 'unknown',
-  avatar: './assets/images/avatar-default.jpg',
-};
+export interface RefreshToken {
+  refresh: boolean;
+  accessToken: string;
+  tokenType: string;
+  exp: number;
+
+  refreshTime: () => number;
+  valid: () => boolean;
+}

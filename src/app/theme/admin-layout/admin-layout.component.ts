@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   OnDestroy,
   ViewChild,
   HostBinding,
@@ -31,7 +30,7 @@ const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
   styleUrls: ['./admin-layout.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AdminLayoutComponent implements OnInit, OnDestroy {
+export class AdminLayoutComponent implements OnDestroy {
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
   @ViewChild('content', { static: true }) content: MatSidenavContent;
 
@@ -63,7 +62,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     );
   }
 
-  private isCollapsedWidthFixed = true;
+  private isCollapsedWidthFixed = false;
 
   constructor(
     private router: Router,
@@ -97,24 +96,19 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     this.receiveOptions(this.options);
   }
 
-  ngOnInit() {
-    setTimeout(() => (this.isContentWidthFixed = this.isCollapsedWidthFixed = false));
-  }
-
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
   }
 
   toggleCollapsed() {
+    this.isContentWidthFixed = false;
     this.options.sidenavCollapsed = !this.options.sidenavCollapsed;
     this.resetCollapsedState();
   }
 
+  // TODO: Trigger when transition end
   resetCollapsedState(timer = 400) {
-    // TODO: Trigger when transition end
-    setTimeout(() => {
-      this.settings.setNavState('collapsed', this.options.sidenavCollapsed);
-    }, timer);
+    setTimeout(() => this.settings.setOptions(this.options), timer);
   }
 
   sidenavCloseStart() {
@@ -122,11 +116,9 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   sidenavOpenedChange(isOpened: boolean) {
-    this.options.sidenavOpened = isOpened;
-    this.settings.setNavState('opened', isOpened);
-
     this.isCollapsedWidthFixed = !this.isOver;
-    this.resetCollapsedState();
+    this.options.sidenavOpened = isOpened;
+    this.settings.setOptions(this.options);
   }
 
   /** Demo purposes only */

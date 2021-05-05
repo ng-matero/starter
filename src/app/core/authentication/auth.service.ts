@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, iif, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, share, switchMap, tap } from 'rxjs/operators';
 import { TokenService } from './token.service';
-import { guest, Token, User } from './interface';
+import { Token, User } from './interface';
+import { guest } from './user';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,18 @@ import { guest, Token, User } from './interface';
 export class AuthService {
   private user$ = new BehaviorSubject<User>(guest);
 
+  private userReq$ = this.http.get<User>('/me');
+
   constructor(private http: HttpClient, private token: TokenService) {
     this.token
       .change()
-      .pipe(
-        switchMap(() => iif(() => this.check(), this.http.get<User>('/me'), of(guest))),
-        map(user => Object.assign({}, guest, user))
-      )
-      .subscribe(user => this.user$.next(user));
+      .pipe(switchMap(() => (this.check() ? this.userReq$ : of(guest))))
+      .subscribe(user => this.user$.next(Object.assign({}, guest, user)));
+
+    this.token
+      .refresh()
+      .pipe(switchMap(() => this.refresh()))
+      .subscribe();
   }
 
   check() {
@@ -32,6 +37,13 @@ export class AuthService {
         tap(token => this.token.set(token)),
         map(() => this.check())
       );
+  }
+
+  refresh() {
+    return this.http.post<Token>('/auth/refresh', {}).pipe(
+      tap(token => this.token.set(token, true)),
+      map(() => this.check())
+    );
   }
 
   logout() {

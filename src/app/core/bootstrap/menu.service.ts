@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 export interface MenuTag {
   color: string; // background color
@@ -29,26 +30,35 @@ export interface Menu {
 export class MenuService {
   private menu$: BehaviorSubject<Menu[]> = new BehaviorSubject<Menu[]>([]);
 
+  /** Get all the menu data. */
   getAll(): Observable<Menu[]> {
     return this.menu$.asObservable();
   }
 
+  /** Observe the change of menu data. */
+  change() {
+    return this.menu$.pipe(share());
+  }
+
+  /** Initialize the menu data. */
   set(menu: Menu[]): Observable<Menu[]> {
     this.menu$.next(menu);
     return this.menu$.asObservable();
   }
 
+  /** Add one item to the menu data. */
   add(menu: Menu) {
     const tmpMenu = this.menu$.value;
     tmpMenu.push(menu);
     this.menu$.next(tmpMenu);
   }
 
+  /** Reset the menu data. */
   reset() {
     this.menu$.next([]);
   }
 
-  // Delete empty values and rebuild route
+  /** Delete empty values and rebuild route. */
   buildRoute(routeArr: string[]): string {
     let route = '';
     routeArr.forEach(item => {
@@ -59,12 +69,12 @@ export class MenuService {
     return route;
   }
 
-  getMenuItemName(routeArr: string[]): string {
-    return this.getMenuLevel(routeArr)[routeArr.length - 1];
+  /** Get the menu item name based on current route. */
+  getItemName(routeArr: string[]): string {
+    return this.getLevel(routeArr)[routeArr.length - 1];
   }
 
-  /** Menu level */
-
+  // Whether is a leaf menu
   private isLeafItem(item: MenuChildrenItem): boolean {
     const cond0 = item.route === undefined;
     const cond1 = item.children === undefined;
@@ -89,10 +99,11 @@ export class MenuService {
     return this.isJsonObjEqual(routeArr, realRouteArr);
   }
 
-  getMenuLevel(routeArr: string[]): string[] {
+  /** Get the menu level. */
+  getLevel(routeArr: string[]): string[] {
     let tmpArr = [];
     this.menu$.value.forEach(item => {
-      // breadth first traverse modified
+      // Breadth-first traverse
       let unhandledLayer = [{ item, parentNamePathList: [], realRouteArr: [] }];
       while (unhandledLayer.length > 0) {
         let nextUnhandledLayer = [];
@@ -100,7 +111,7 @@ export class MenuService {
           const eachItem = ele.item;
           const currentNamePathList = this.deepClone(ele.parentNamePathList).concat(eachItem.name);
           const currentRealRouteArr = this.deepClone(ele.realRouteArr).concat(eachItem.route);
-          // compare the full Array for expandable
+          // Compare the full Array for expandable
           if (this.isRouteEqual(routeArr, currentRealRouteArr)) {
             tmpArr = currentNamePathList;
             break;
@@ -120,13 +131,12 @@ export class MenuService {
     return tmpArr;
   }
 
-  /** Menu for translation */
-
-  recursMenuForTranslation(menu: Menu[] | MenuChildrenItem[], namespace: string) {
+  /** Add namespace for translation. */
+  addNamespace(menu: Menu[] | MenuChildrenItem[], namespace: string) {
     menu.forEach(menuItem => {
       menuItem.name = `${namespace}.${menuItem.name}`;
       if (menuItem.children && menuItem.children.length > 0) {
-        this.recursMenuForTranslation(menuItem.children, menuItem.name);
+        this.addNamespace(menuItem.children, menuItem.name);
       }
     });
   }

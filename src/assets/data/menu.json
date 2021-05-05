@@ -341,8 +341,21 @@
       "icon": "extension",
       "label": {
         "color": "indigo-500",
-        "value": "v10"
+        "value": "new"
       }
+    },
+    {
+      "route": "permissions",
+      "name": "permissions",
+      "type": "sub",
+      "icon": "lock",
+      "children": [
+        {
+          "route": "test",
+          "name": "test",
+          "type": "link"
+        }
+      ]
     },
     {
       "route": "sessions",

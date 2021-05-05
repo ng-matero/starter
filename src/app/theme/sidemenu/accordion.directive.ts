@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { MenuService } from '@core';
 import { filter } from 'rxjs/operators';
 import { AccordionItemDirective } from './accordionItem.directive';
 
@@ -9,14 +10,15 @@ import { AccordionItemDirective } from './accordionItem.directive';
 export class AccordionDirective {
   protected navlinks: Array<AccordionItemDirective> = [];
 
-  constructor(private router: Router) {
-    // Fix: `ERROR Error: ExpressionChangedAfterItHasBeenCheckedError:
-    // Expression has changed after it was checked`.
-    setTimeout(() => this.checkOpenLinks());
-
+  constructor(private router: Router, private menu: MenuService) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.checkOpenLinks());
+
+    // Fix opening status for async menu data
+    this.menu.change().subscribe(() => {
+      setTimeout(() => this.checkOpenLinks());
+    });
   }
 
   addLink(link: AccordionItemDirective): void {
