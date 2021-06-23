@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -6,10 +7,10 @@ import { Injectable } from '@angular/core';
 export class PreloaderService {
   private selector = 'globalLoader';
 
-  constructor() {}
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   private getElement() {
-    return document.getElementById(this.selector);
+    return this.document.getElementById(this.selector);
   }
 
   hide() {
@@ -19,7 +20,7 @@ export class PreloaderService {
         el.className = 'global-loader-hidden';
       });
 
-      if (!el.className.includes('global-loader-hidden')) {
+      if (!el.classList.contains('global-loader-hidden')) {
         el.className += ' global-loader-fade-in';
       }
     }
