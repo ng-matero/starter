@@ -6,11 +6,17 @@ export interface MenuTag {
   value: string;
 }
 
+export interface MenuPermissions {
+  only?: string | string[];
+  except?: string | string[];
+}
+
 export interface MenuChildrenItem {
   route: string;
   name: string;
   type: 'link' | 'sub' | 'extLink' | 'extTabLink';
   children?: MenuChildrenItem[];
+  permissions?: MenuPermissions;
 }
 
 export interface Menu {
@@ -21,6 +27,7 @@ export interface Menu {
   label?: MenuTag;
   badge?: MenuTag;
   children?: MenuChildrenItem[];
+  permissions?: MenuPermissions;
 }
 
 @Injectable({
@@ -63,8 +70,7 @@ export class MenuService {
     return this.getMenuLevel(routeArr)[routeArr.length - 1];
   }
 
-  /** Menu level */
-
+  // Whether is a leaf menu
   private isLeafItem(item: MenuChildrenItem): boolean {
     const cond0 = item.route === undefined;
     const cond1 = item.children === undefined;
@@ -120,8 +126,7 @@ export class MenuService {
     return tmpArr;
   }
 
-  /** Menu for translation */
-
+  /** Add namespace for translation. */
   recursMenuForTranslation(menu: Menu[] | MenuChildrenItem[], namespace: string) {
     menu.forEach(menuItem => {
       menuItem.name = `${namespace}.${menuItem.name}`;
