@@ -1,35 +1,36 @@
-@import '../style/variables';
+@use 'sass:map';
+@use '~@angular/material' as mat;
 
-@mixin matero-sidemenu-theme($theme) {
-  $is-dark-theme: map-get($theme, is-dark);
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $background: map-get($theme, background);
-  $foreground: map-get($theme, foreground);
+@mixin theme($theme) {
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $background: map.get($theme, background);
+  $foreground: map.get($theme, foreground);
 
   .matero-sidemenu {
     > .matero-sidemenu-item {
       > a {
-        color: mat-color($foreground, text);
+        color: mat.get-color-from-palette($foreground, text);
 
         &:hover {
-          background: mat-color($background, hover);
+          background: mat.get-color-from-palette($background, hover);
         }
       }
 
       &.active {
         > a {
-          background-color: if($is-dark-theme, rgba(mat-color($primary), .15), transparent);
-          color: if($is-dark-theme, lighten(mat-color($primary), 25%), mat-color($accent));
+          background-color: if($is-dark-theme, rgba(mat.get-color-from-palette($primary), .15), transparent);
+          color: if($is-dark-theme, lighten(mat.get-color-from-palette($primary), 25%), mat.get-color-from-palette($accent));
 
           &:hover {
-            background: mat-color($background, hover);
+            background: mat.get-color-from-palette($background, hover);
           }
         }
       }
 
       &.open {
-        background: mat-color($background, hover);
+        background: mat.get-color-from-palette($background, hover);
       }
     }
 
@@ -40,7 +41,7 @@
             background-color: transparent;
 
             &:hover {
-              background: mat-color($background, hover);
+              background: mat.get-color-from-palette($background, hover);
             }
           }
         }
