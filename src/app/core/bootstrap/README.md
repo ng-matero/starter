@@ -1,5 +1,3 @@
 # Bootstrap
 
-You should replace the APIs to your own in `startup.service.ts`
-
-- `/me/menu` Get user menu
+The services in this folder should be singletons and used for sharing data and functionality.
