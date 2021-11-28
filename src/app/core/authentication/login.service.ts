@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TokenResponse, User } from './interface';
+import { Token, User } from './interface';
+import { Menu } from '@core';
 
 @Injectable({
   providedIn: 'root',
@@ -9,19 +10,15 @@ export class LoginService {
   constructor(protected http: HttpClient) {}
 
   login(email: string, password: string, rememberMe = false) {
-    return this.http.post<TokenResponse | any>('/auth/login', {
-      email,
-      password,
-      remember_me: rememberMe,
-    });
+    return this.http.post<Token | any>('/auth/login', { email, password, remember_me: rememberMe });
   }
 
-  refresh() {
-    return this.http.post<TokenResponse | any>('/auth/refresh', {});
+  refresh(params: any) {
+    return this.http.post<Token | any>('/auth/refresh', params);
   }
 
   logout() {
-    return this.http.post('/auth/logout', {});
+    return this.http.post<any>('/auth/logout', {});
   }
 
   me() {
@@ -29,6 +26,6 @@ export class LoginService {
   }
 
   menu() {
-    return this.http.get('/me/menu');
+    return this.http.get<{ menu: Menu[] }>('/me/menu');
   }
 }
