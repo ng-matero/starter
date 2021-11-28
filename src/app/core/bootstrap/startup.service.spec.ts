@@ -1,18 +1,18 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { NgxPermissionsModule, NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
-import { LocalStorageService, MemoryStorageService } from '../../shared/services/storage.service';
-import { TokenService } from '../authentication/token.service';
-import { MenuService } from './menu.service';
-import { StartupService } from './startup.service';
+import { LocalStorageService, MemoryStorageService } from '@shared/services/storage.service';
+import { admin, TokenService } from '@core/authentication';
+import { MenuService } from '@core/bootstrap/menu.service';
+import { StartupService } from '@core/bootstrap/startup.service';
 
 describe('StartupService', () => {
   let httpMock: HttpTestingController;
   let startup: StartupService;
-  let token: TokenService;
-  let menu: MenuService;
-  let mockPermissionsSrv: NgxPermissionsService;
-  let mockRolesSrv: NgxRolesService;
+  let tokenService: TokenService;
+  let menuService: MenuService;
+  let mockPermissionsService: NgxPermissionsService;
+  let mockRolesService: NgxRolesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,6 +31,7 @@ describe('StartupService', () => {
         {
           provide: NgxRolesService,
           useValue: {
+            flushRoles: () => void 0,
             addRoles: (params: { ADMIN: string[] }) => void 0,
           },
         },
@@ -39,45 +40,48 @@ describe('StartupService', () => {
     });
     httpMock = TestBed.inject(HttpTestingController);
     startup = TestBed.inject(StartupService);
-    token = TestBed.inject(TokenService);
-    menu = TestBed.inject(MenuService);
-    mockPermissionsSrv = TestBed.inject(NgxPermissionsService);
-    mockRolesSrv = TestBed.inject(NgxRolesService);
+    tokenService = TestBed.inject(TokenService);
+    menuService = TestBed.inject(MenuService);
+    mockPermissionsService = TestBed.inject(NgxPermissionsService);
+    mockRolesService = TestBed.inject(NgxRolesService);
   });
 
   afterEach(() => httpMock.verify());
 
-  it('should load menu when token changed and token valid', () => {
+  it('should load menu when token changed and token valid', async () => {
     const menuData = { menu: [] };
     const permissions = ['canAdd', 'canDelete', 'canEdit', 'canRead'];
-    spyOn(menu, 'addNamespace');
-    spyOn(menu, 'set');
-    spyOn(mockPermissionsSrv, 'loadPermissions');
-    spyOn(mockRolesSrv, 'addRoles');
+    spyOn(menuService, 'addNamespace');
+    spyOn(menuService, 'set');
+    spyOn(mockPermissionsService, 'loadPermissions');
+    spyOn(mockRolesService, 'flushRoles');
+    spyOn(mockRolesService, 'addRoles');
 
-    startup.load();
+    await startup.load();
 
-    token.set({ access_token: 'token' });
+    tokenService.set({ access_token: 'token' });
 
+    httpMock.expectOne('/me').flush(admin);
     httpMock.expectOne('/me/menu').flush(menuData);
 
-    expect(menu.addNamespace).toHaveBeenCalledWith(menuData.menu, 'menu');
-    expect(menu.set).toHaveBeenCalledWith(menuData.menu);
-    expect(mockPermissionsSrv.loadPermissions).toHaveBeenCalledWith(permissions);
-    expect(mockRolesSrv.addRoles).toHaveBeenCalledWith({ ADMIN: permissions });
+    expect(menuService.addNamespace).toHaveBeenCalledWith(menuData.menu, 'menu');
+    expect(menuService.set).toHaveBeenCalledWith(menuData.menu);
+    expect(mockPermissionsService.loadPermissions).toHaveBeenCalledWith(permissions);
+    expect(mockRolesService.flushRoles).toHaveBeenCalledWith();
+    expect(mockRolesService.addRoles).toHaveBeenCalledWith({ ADMIN: permissions });
   });
 
-  it('should clear menu when token changed and token invalid', () => {
-    spyOn(menu, 'addNamespace');
-    spyOn(menu, 'set');
+  it('should clear menu when token changed and token invalid', async () => {
+    spyOn(menuService, 'addNamespace');
+    spyOn(menuService, 'set');
 
-    startup.load();
+    await startup.load();
 
-    token.set({});
+    tokenService.set({});
 
     httpMock.expectNone('/me/menu');
 
-    expect(menu.addNamespace).toHaveBeenCalledWith([], 'menu');
-    expect(menu.set).toHaveBeenCalledWith([]);
+    expect(menuService.addNamespace).toHaveBeenCalledWith([], 'menu');
+    expect(menuService.set).toHaveBeenCalledWith([]);
   });
 });

@@ -1,66 +1,34 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, share, switchMap } from 'rxjs/operators';
-import { LocalStorageService } from '../../shared/services/storage.service';
-import { Token, TokenResponse } from './interface';
-import { now } from './helpers';
+import { LocalStorageService } from '@shared';
+import { Token } from './interface';
+import { BaseToken, GuestToken } from './token';
 import { TokenFactory } from './token-factory.service';
+import { currentTimestamp } from './helpers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
-  private key = 'TOKEN';
-  private _token: Token | null = null;
-  private change$ = new BehaviorSubject<boolean>(true);
+  private key = 'ng-matero-token';
+  private tokenChange$ = new BehaviorSubject<boolean>(true);
+  private change$ = this.tokenChange$.pipe(
+    filter(changed => changed),
+    map(() => this.token),
+    share()
+  );
+  private refresh$ = this.tokenChange$.pipe(
+    filter(() => this.token.needRefresh()),
+    switchMap(() => timer(this.token.getRefreshTime() * 1000)),
+    map(() => this.token),
+    share()
+  );
+  private _token?: BaseToken;
 
   constructor(private store: LocalStorageService, private factory: TokenFactory) {}
 
-  set(token: TokenResponse | any) {
-    this.setToken(token, true);
-
-    return this;
-  }
-
-  refresh(token: TokenResponse | any) {
-    this.setToken(token, false);
-  }
-
-  clear() {
-    this.clearToken();
-  }
-
-  changed() {
-    return this.change$.pipe(
-      filter(changed => changed),
-      map(() => this.getToken()),
-      share()
-    );
-  }
-
-  refreshed() {
-    return this.change$.pipe(
-      filter(() => this.hasRefreshTime()),
-      switchMap(() => timer(this.getRefreshTime())),
-      filter(() => this.valid()),
-      map(() => this.getToken()),
-      share()
-    );
-  }
-
-  valid() {
-    return !!this.getToken()?.valid();
-  }
-
-  headerValue() {
-    return this.getToken()?.headerValue();
-  }
-
-  private getToken(): Token | null {
-    if (!this.hasToken()) {
-      return null;
-    }
-
+  private get token(): BaseToken {
     if (!this._token) {
       this._token = this.factory.create(this.store.get(this.key));
     }
@@ -68,32 +36,61 @@ export class TokenService {
     return this._token;
   }
 
-  private setToken(token: any, changed = false) {
-    this._token = null;
-    const accessToken = token.access_token || token.token || '';
-    const tokenType = token.token_type || 'bearer';
-    const expiresIn = token.expires_in || 0;
-    const exp = expiresIn <= 0 ? 0 : now() + expiresIn * 1000;
-
-    this.store.set(this.key, Object.assign({}, token, { accessToken, tokenType, exp }));
-    this.change$.next(changed);
+  onChange(): Observable<BaseToken> {
+    return this.change$;
   }
 
-  private hasToken() {
-    return this.store.has(this.key);
+  onRefresh(): Observable<BaseToken> {
+    return this.refresh$;
   }
 
-  private clearToken() {
-    this._token = null;
+  set(response: Token | any, triggerChange = true): TokenService {
+    return this.save(response, triggerChange);
+  }
+
+  clear(): void {
+    this._token = undefined;
     this.store.remove(this.key);
-    this.change$.next(true);
+    this.tokenChange$.next(true);
   }
 
-  private hasRefreshTime() {
-    return this.hasToken() && this.getToken()!.exp() > 0;
+  valid(): boolean {
+    return this.token.valid();
   }
 
-  private getRefreshTime() {
-    return this.getToken()!.refreshTime();
+  getBearerToken(): string {
+    return this.token.getBearerToken();
+  }
+
+  getRefreshToken(): string | void {
+    return this.token.refresh_token;
+  }
+
+  canAssignUserWhenLogin(): boolean {
+    return this.token.valid() || !this.hasRefreshToken();
+  }
+
+  canAssignUserWhenRefresh(): boolean {
+    return this.token.valid() && !this.isGuest();
+  }
+
+  private isGuest(): boolean {
+    return this.token instanceof GuestToken;
+  }
+
+  private hasRefreshToken(): boolean {
+    return !!this.token.refresh_token;
+  }
+
+  private save(response: Token | any, triggerChange = false): TokenService {
+    this._token = undefined;
+
+    const exp = response.expires_in ? { exp: currentTimestamp() + response.expires_in } : {};
+    const token: Token = Object.assign({ access_token: '', token_type: 'Bearer' }, response, exp);
+
+    this.store.set(this.key, token);
+    this.tokenChange$.next(triggerChange);
+
+    return this;
   }
 }
