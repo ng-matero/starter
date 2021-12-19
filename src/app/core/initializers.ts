@@ -10,6 +10,11 @@ export function TranslateLangServiceFactory(translateLangService: TranslateLangS
   return () => translateLangService.load();
 }
 
+import { AuthService } from '@core/authentication';
+export function AuthServiceFactory(authService: AuthService) {
+  return () => authService.init();
+}
+
 import { StartupService } from './bootstrap/startup.service';
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
@@ -26,6 +31,12 @@ export const appInitializerProviders = [
     provide: APP_INITIALIZER,
     useFactory: TranslateLangServiceFactory,
     deps: [TranslateLangService],
+    multi: true,
+  },
+  {
+    provide: APP_INITIALIZER,
+    useFactory: AuthServiceFactory,
+    deps: [AuthService],
     multi: true,
   },
   {
