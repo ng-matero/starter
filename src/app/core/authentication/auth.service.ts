@@ -19,8 +19,8 @@ export class AuthService {
 
   constructor(private loginService: LoginService, private tokenService: TokenService) {}
 
-  onChange() {
-    return this.change$;
+  init() {
+    return new Promise<void>(resolve => this.change$.subscribe(() => resolve()));
   }
 
   check() {
@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   menu() {
-    return this.loginService.menu();
+    return iif(() => this.check(), this.loginService.menu(), of([]));
   }
 
   private assignUser() {
