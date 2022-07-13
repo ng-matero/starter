@@ -18,7 +18,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "@angularclass/hmr"
+              "base64-js",
+              "moment",
+              "photoviewer"
             ],
             "outputPath": "dist/starter",
             "index": "src/index.html",
