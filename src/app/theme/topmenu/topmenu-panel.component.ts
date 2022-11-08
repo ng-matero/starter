@@ -30,7 +30,7 @@ export class TopmenuPanelComponent implements OnInit, OnDestroy {
 
   buildRoute = this.menu.buildRoute;
 
-  private routerSubscription!: Subscription;
+  private routerSubscription = Subscription.EMPTY;
 
   constructor(private menu: MenuService, private router: Router) {}
 
@@ -41,18 +41,18 @@ export class TopmenuPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.routerSubscription?.unsubscribe();
+    this.routerSubscription.unsubscribe();
   }
 
   checkRoute(item: MenuChildrenItem) {
     if (!item.route) {
-      return this.checkChildRoute(item.children!);
+      return this.checkChildRoute(item.children);
     } else {
       return this.router.url.split('/').includes(item.route);
     }
   }
 
-  checkChildRoute(menuItems: MenuChildrenItem[]) {
+  checkChildRoute(menuItems: MenuChildrenItem[] = []) {
     return menuItems.some(child => {
       if (this.router.url.split('/').includes(child.route)) {
         return true;
@@ -71,7 +71,7 @@ export class TopmenuPanelComponent implements OnInit, OnDestroy {
   onRouteChange(rla: RouterLinkActive, index: number) {
     this.routeChange.emit(rla);
 
-    this.routerSubscription?.unsubscribe();
+    this.routerSubscription.unsubscribe();
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(e => {

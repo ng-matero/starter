@@ -1,7 +1,7 @@
 @use '../style/transitions';
 
 .matero-user-panel {
-  padding: 16px 0;
+  padding: 12px 0;
 }
 
 // Set default width and height can avoid flashing before avatar image loaded.
@@ -16,7 +16,7 @@
 .matero-user-panel-name,
 .matero-user-panel-email {
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-weight: normal;
 }
 
