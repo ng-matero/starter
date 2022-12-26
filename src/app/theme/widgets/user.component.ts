@@ -6,13 +6,9 @@ import { AuthService, User } from '@core/authentication';
 @Component({
   selector: 'app-user',
   template: `
-    <button
-      class="matero-toolbar-button matero-avatar-button"
-      mat-button
-      [matMenuTriggerFor]="menu"
-    >
-      <img class="matero-avatar" [src]="user.avatar" width="32" alt="avatar" />
-      <span class="matero-username" fxHide.lt-sm>{{ user.name }}</span>
+    <button class="r-full" mat-button [matMenuTriggerFor]="menu">
+      <img matButtonIcon class="avatar r-full" [src]="user.avatar" width="24" alt="avatar" />
+      <span class="m-x-8">{{ user.name }}</span>
     </button>
 
     <mat-menu #menu="matMenu">
@@ -30,6 +26,14 @@ import { AuthService, User } from '@core/authentication';
       </button>
     </mat-menu>
   `,
+  styles: [
+    `
+      .avatar {
+        width: 24px;
+        height: 24px;
+      }
+    `,
+  ],
 })
 export class UserComponent implements OnInit {
   user!: User;

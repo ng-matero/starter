@@ -3,13 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-github-button',
   template: `
-    <a
-      mat-icon-button
-      class="matero-toolbar-button"
-      href="https://github.com/ng-matero/ng-matero"
-      target="_blank"
-    >
-      <svg viewBox="0 0 16 16" class="mat-icon">
+    <a mat-icon-button href="https://github.com/ng-matero/ng-matero" target="_blank">
+      <svg viewBox="0 0 16 16">
         <path
           fill="currentColor"
           d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,

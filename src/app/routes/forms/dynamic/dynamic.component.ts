@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forms-dynamic',
   templateUrl: './dynamic.component.html',
+  styleUrls: ['./dynamic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormsDynamicComponent {
@@ -130,6 +130,7 @@ export class FormsDynamicComponent {
       templateOptions: {
         label: 'Other Checkbox',
       },
+      wrappers: ['div'],
     },
   ];
 
