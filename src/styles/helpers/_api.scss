@@ -2,11 +2,11 @@
 @use 'sass:meta';
 @use 'sass:list';
 
-@use 'variables' as *;
-
+@use 'functions';
+@use 'variables';
+@use 'position';
 @use 'display';
 @use 'flexbox';
-@use 'position';
 @use 'sizing';
 @use 'spacing';
 @use 'border';
@@ -14,11 +14,25 @@
 @use 'text';
 @use 'alignment';
 @use 'overflow';
-@use 'cursor';
-@use 'image';
-@use 'icon';
+@use 'interaction';
+@use 'object';
 
-// Generate Helpers
+$utilities: functions.map-collect(
+  variables.$utilities,
+  position.$utilities,
+  display.$utilities,
+  flexbox.$utilities,
+  sizing.$utilities,
+  spacing.$utilities,
+  border.$utilities,
+  rounded.$utilities,
+  text.$utilities,
+  alignment.$utilities,
+  overflow.$utilities,
+  interaction.$utilities,
+  object.$utilities,
+);
+
 @each $key, $utility in $utilities {
   $values: map.get($utility, values);
 
