@@ -17,16 +17,6 @@
   position: absolute;
   overflow-x: hidden;
   transition: transitions.swift-ease-out(width); // Only set width property
-
-  @include mat.elevation(2);
-
-  &.mat-drawer-side {
-    border-width: 0;
-
-    [dir='rtl'] & {
-      border-width: 0;
-    }
-  }
 }
 
 // Layout control
@@ -118,6 +108,9 @@
   .matero-header {
     position: sticky;
     top: 0;
+    // Fix header's positioning problem on Firefox
+    // https://github.com/ng-matero/ng-matero/issues/522
+    display: block;
   }
 
   .matero-topmenu {
@@ -127,14 +120,6 @@
       & {
         top: variables.$topmenu-sticky-position-mobile;
       }
-    }
-  }
-
-  &.matero-navbar-side {
-    .matero-toolbar {
-      border-bottom: unset;
-
-      @include mat.elevation(2);
     }
   }
 }
