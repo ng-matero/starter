@@ -1,8 +1,17 @@
+import { AsyncPipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { Component, HostBinding, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router, RouterLinkActive } from '@angular/router';
-import { Menu, MenuService } from '@core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import { Menu, MenuService } from '@core';
+import { TopmenuPanelComponent } from './topmenu-panel.component';
 
 export interface TopmenuState {
   active: boolean;
@@ -14,6 +23,22 @@ export interface TopmenuState {
   templateUrl: './topmenu.component.html',
   styleUrls: ['./topmenu.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgFor,
+    NgIf,
+    NgTemplateOutlet,
+    RouterLink,
+    RouterLinkActive,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatTabsModule,
+    NgxPermissionsModule,
+    TranslateModule,
+    TopmenuPanelComponent,
+  ],
 })
 export class TopmenuComponent implements OnDestroy {
   @HostBinding('class') class = 'matero-topmenu';
@@ -28,7 +53,10 @@ export class TopmenuComponent implements OnDestroy {
   private menuSubscription = Subscription.EMPTY;
   private routerSubscription = Subscription.EMPTY;
 
-  constructor(private menu: MenuService, private router: Router) {
+  constructor(
+    private menu: MenuService,
+    private router: Router
+  ) {
     this.menuSubscription = this.menu$.subscribe(res => {
       this.menuList = res;
       this.menuList.forEach(item => {

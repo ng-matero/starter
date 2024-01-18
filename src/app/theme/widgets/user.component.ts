@@ -1,8 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SettingsService } from '@core';
-import { AuthService, User } from '@core/authentication';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { debounceTime, tap } from 'rxjs/operators';
+
+import { AuthService, SettingsService, User } from '@core';
 
 @Component({
   selector: 'app-user',
@@ -39,6 +43,8 @@ import { debounceTime, tap } from 'rxjs/operators';
       }
     `,
   ],
+  standalone: true,
+  imports: [RouterLink, MatButtonModule, MatIconModule, MatMenuModule, TranslateModule],
 })
 export class UserComponent implements OnInit {
   user!: User;

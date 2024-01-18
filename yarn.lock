@@ -7835,10 +7835,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ng-matero@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/ng-matero/-/ng-matero-16.2.0.tgz#4ab68f7f7061a2ea5b8a7f651e14c145cb8d9696"
-  integrity sha512-qqh7476EvOlKBw+3X1fDWrerqKSG9qMvZFwZsFjcgaLTluwL/Bng2yhaweAGaGaJdlJ/8NVWAJVCBqCmcSuVmA==
+ng-matero@^16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/ng-matero/-/ng-matero-16.3.0.tgz#7bbb7157ce41eaac36223483da754fdb87b1425a"
+  integrity sha512-8zHRhcFwzkHHFx80ZtGwR1bK+37Fb8u0r/oYdAvTKSIiEQwbBRcCYCdpTN6983Igmx2DKL5rllM6nwRQrL2PUw==
 
 ngx-color@^9.0.0:
   version "9.0.0"
@@ -7849,12 +7849,12 @@ ngx-color@^9.0.0:
     material-colors "^1.2.6"
     tslib "^2.3.0"
 
-ngx-permissions@^15.0.0:
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-15.0.1.tgz#367b4d14bbdc943c1362fcd4a4f015c981d9203e"
-  integrity sha512-GjPF54B0DYtzqVb95YUh1XZivU4ilpCnx04gtADnIz4grihb/AtVwGwjgeeC1N/zrwUaZWLxTkIm5emN11JlDw==
+ngx-permissions@^16.0.0:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-16.0.1.tgz#8dfd6a5cce92500f8abe381667c4ba2c6daf9541"
+  integrity sha512-4nGBuZCMgVySgUbwLpTNRFAS73bTt8uFCwBC5XQW/RxvkIH7UmtdtBD9VKBa7fgG8nEW5GPOCXy7L7ixP1gTvg==
   dependencies:
-    tslib "^2.1.0"
+    tslib "^2.3.0"
 
 ngx-progressbar@^11.0.0:
   version "11.1.0"

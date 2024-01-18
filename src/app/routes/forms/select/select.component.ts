@@ -1,7 +1,16 @@
+import { AsyncPipe, JsonPipe, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MtxSelectModule } from '@ng-matero/extensions/select';
 import { Observable } from 'rxjs';
-import { Person, DataService } from '../data.service';
+
+import { PageHeaderComponent } from '@shared';
+import { DataService, Person } from '../data.service';
 import { FormsSelectEditComponent } from './edit/edit.component';
 
 @Component({
@@ -9,6 +18,20 @@ import { FormsSelectEditComponent } from './edit/edit.component';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   providers: [DataService],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    JsonPipe,
+    NgFor,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MtxSelectModule,
+    PageHeaderComponent,
+  ],
 })
 export class FormsSelectComponent implements OnInit {
   // Data source
@@ -37,7 +60,10 @@ export class FormsSelectComponent implements OnInit {
   selectedCompanyCustom = null;
   selectedCompanyCustomPromise = null;
 
-  constructor(private dataService: DataService, public dialog: MatDialog) {}
+  constructor(
+    private dataService: DataService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.people$ = this.dataService.getPeople();

@@ -1,4 +1,4 @@
-import { CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragStart } from '@angular/cdk/drag-drop';
 import {
   Component,
   EventEmitter,
@@ -7,16 +7,38 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { AppSettings, SettingsService } from '@core';
-import { MtxDrawer, MtxDrawerRef } from '@ng-matero/extensions/drawer';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MtxDrawer, MtxDrawerModule, MtxDrawerRef } from '@ng-matero/extensions/drawer';
 import { Subscription } from 'rxjs';
+
+import { AppSettings, SettingsService } from '@core';
+import { DisableControlDirective } from '@shared';
 
 @Component({
   selector: 'app-customizer',
   templateUrl: './customizer.component.html',
   styleUrls: ['./customizer.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CdkDrag,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    MtxDrawerModule,
+    DisableControlDirective,
+  ],
 })
 export class CustomizerComponent implements OnInit {
   @Output() optionsChange = new EventEmitter<AppSettings>();

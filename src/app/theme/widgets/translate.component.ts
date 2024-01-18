@@ -1,6 +1,10 @@
+import { KeyValuePipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { SettingsService } from '@core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-translate',
@@ -15,6 +19,8 @@ import { SettingsService } from '@core';
       </button>
     </mat-menu>
   `,
+  standalone: true,
+  imports: [KeyValuePipe, NgFor, MatButtonModule, MatIconModule, MatMenuModule],
 })
 export class TranslateComponent {
   langs = {
@@ -23,7 +29,10 @@ export class TranslateComponent {
     'zh-TW': '中文繁体',
   };
 
-  constructor(private translate: TranslateService, private settings: SettingsService) {
+  constructor(
+    private translate: TranslateService,
+    private settings: SettingsService
+  ) {
     translate.addLangs(['en-US', 'zh-CN', 'zh-TW']);
   }
 

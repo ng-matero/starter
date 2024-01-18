@@ -1,10 +1,27 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+
+import { BreadcrumbComponent } from '@shared';
 
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    BreadcrumbComponent,
+  ],
 })
 export class PaginatorComponent {
   // MatPaginator Inputs

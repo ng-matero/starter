@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatSliderModule } from '@angular/material/slider';
+
+import { BreadcrumbComponent } from '@shared';
 
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
+  standalone: true,
+  imports: [BreadcrumbComponent, MatCardModule, MatSliderModule, FormsModule],
 })
 export class SliderComponent {
   red = 0;

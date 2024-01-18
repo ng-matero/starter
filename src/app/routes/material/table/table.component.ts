@@ -1,9 +1,13 @@
+import { CdkTableModule, DataSource } from '@angular/cdk/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { DataSource } from '@angular/cdk/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { BehaviorSubject, Observable, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { BreadcrumbComponent } from '@shared';
 
 export interface UserData {
   name: string;
@@ -24,6 +28,15 @@ const exampleData = [
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  standalone: true,
+  imports: [
+    BreadcrumbComponent,
+    CdkTableModule,
+    MatCardModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+  ],
 })
 export class TableComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;

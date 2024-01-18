@@ -1,10 +1,19 @@
+import { BidiModule } from '@angular/cdk/bidi';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgClass, NgIf } from '@angular/common';
 import { Component, HostBinding, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
-import { NavigationEnd, Router } from '@angular/router';
-import { AppSettings, SettingsService } from '@core';
+import { MatSidenav, MatSidenavContent, MatSidenavModule } from '@angular/material/sidenav';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NgProgressComponent } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import { AppSettings, SettingsService } from '@core';
+import { CustomizerComponent } from '../customizer/customizer.component';
+import { HeaderComponent } from '../header/header.component';
+import { SidebarNoticeComponent } from '../sidebar-notice/sidebar-notice.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { TopmenuComponent } from '../topmenu/topmenu.component';
 
 const MOBILE_MEDIAQUERY = 'screen and (max-width: 599px)';
 const TABLET_MEDIAQUERY = 'screen and (min-width: 600px) and (max-width: 959px)';
@@ -15,6 +24,20 @@ const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    NgIf,
+    NgClass,
+    RouterOutlet,
+    BidiModule,
+    MatSidenavModule,
+    NgProgressComponent,
+    HeaderComponent,
+    TopmenuComponent,
+    SidebarComponent,
+    SidebarNoticeComponent,
+    CustomizerComponent,
+  ],
 })
 export class AdminLayoutComponent implements OnDestroy {
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;

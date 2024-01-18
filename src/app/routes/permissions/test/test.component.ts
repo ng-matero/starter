@@ -1,10 +1,16 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { MtxAlertModule } from '@ng-matero/extensions/alert';
+import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
+
+import { PageHeaderComponent } from '@shared';
 
 @Component({
   selector: 'app-permissions-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss'],
+  standalone: true,
+  imports: [JsonPipe, MtxAlertModule, NgxPermissionsModule, PageHeaderComponent],
 })
 export class PermissionsTestComponent {
   comparedPermission: string[] = ['guest'];

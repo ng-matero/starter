@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { BreadcrumbComponent } from '@shared';
 
 @Component({
   selector: 'app-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
+  standalone: true,
+  imports: [BreadcrumbComponent, MatIconModule, MatButtonModule],
 })
 export class IconComponent {
   constructor(private snackBar: MatSnackBar) {}

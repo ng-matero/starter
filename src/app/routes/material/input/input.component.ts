@@ -1,4 +1,14 @@
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+
+import { BreadcrumbComponent } from '@shared';
 
 const USD_TO_JPY = 110.29;
 
@@ -6,6 +16,18 @@ const USD_TO_JPY = 110.29;
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    TextFieldModule,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    BreadcrumbComponent,
+  ],
 })
 export class InputComponent {
   firstName!: string;

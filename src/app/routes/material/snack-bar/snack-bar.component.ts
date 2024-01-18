@@ -1,5 +1,13 @@
 import { Directionality } from '@angular/cdk/bidi';
+import { NgIf } from '@angular/common';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import {
   MatSnackBar,
   MatSnackBarConfig,
@@ -7,10 +15,24 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 
+import { BreadcrumbComponent } from '@shared';
+
 @Component({
   selector: 'app-snack-bar',
   templateUrl: './snack-bar.component.html',
   styleUrls: ['./snack-bar.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatOptionModule,
+    BreadcrumbComponent,
+  ],
 })
 export class SnackBarComponent {
   @ViewChild('template') template!: TemplateRef<any>;

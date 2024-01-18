@@ -1,22 +1,38 @@
+import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
-  ViewChild,
-  Input,
-  Output,
   EventEmitter,
-  OnInit,
+  Input,
   OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
-import { MatMenu } from '@angular/material/menu';
-import { NavigationEnd, Router, RouterLinkActive } from '@angular/router';
-import { MenuChildrenItem, MenuService } from '@core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import { MenuChildrenItem, MenuService } from '@core';
 import { TopmenuState } from './topmenu.component';
 
 @Component({
   selector: 'app-topmenu-panel',
   templateUrl: './topmenu-panel.component.html',
+  standalone: true,
+  imports: [
+    NgFor,
+    NgIf,
+    RouterLink,
+    RouterLinkActive,
+    MatIconModule,
+    MatMenuModule,
+    NgxPermissionsModule,
+    TranslateModule,
+  ],
 })
 export class TopmenuPanelComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenu, { static: true }) menuPanel!: MatMenu;
@@ -32,7 +48,10 @@ export class TopmenuPanelComponent implements OnInit, OnDestroy {
 
   private routerSubscription = Subscription.EMPTY;
 
-  constructor(private menu: MenuService, private router: Router) {}
+  constructor(
+    private menu: MenuService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.items.forEach(item => {

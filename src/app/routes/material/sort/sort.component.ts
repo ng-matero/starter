@@ -1,5 +1,9 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { MatSortModule, Sort } from '@angular/material/sort';
+
+import { BreadcrumbComponent } from '@shared';
 
 export interface Dessert {
   calories: number;
@@ -17,6 +21,8 @@ function compare(a: number | string, b: number | string, isAsc: boolean) {
   selector: 'app-sort',
   templateUrl: './sort.component.html',
   styleUrls: ['./sort.component.scss'],
+  standalone: true,
+  imports: [BreadcrumbComponent, MatCardModule, MatSortModule, NgFor],
 })
 export class SortComponent {
   desserts: Dessert[] = [
