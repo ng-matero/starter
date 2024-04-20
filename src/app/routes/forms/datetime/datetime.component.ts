@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,10 +15,13 @@ import {
   MtxDatetimepickerModule,
 } from '@ng-matero/extensions/datetimepicker';
 import { TranslateService } from '@ngx-translate/core';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
 
 import { PageHeaderComponent } from '@shared';
+
+const moment = _rollupMoment || _moment;
 
 @Component({
   selector: 'app-forms-datetime',
@@ -36,6 +39,10 @@ import { PageHeaderComponent } from '@shared';
   ],
 })
 export class FormsDatetimeComponent implements OnInit, OnDestroy {
+  private readonly fb = inject(FormBuilder);
+  private readonly dateAdapter = inject(DateAdapter);
+  private readonly translate = inject(TranslateService);
+
   type = 'moment';
 
   group: FormGroup;
@@ -46,13 +53,9 @@ export class FormsDatetimeComponent implements OnInit, OnDestroy {
   start: moment.Moment;
   filter: (date: moment.Moment | null, type: MtxDatetimepickerFilterType) => boolean;
 
-  translateSubscription!: Subscription;
+  private translateSubscription = Subscription.EMPTY;
 
-  constructor(
-    private fb: FormBuilder,
-    private dateAdapter: DateAdapter<any>,
-    private translate: TranslateService
-  ) {
+  constructor() {
     this.today = moment.utc();
     this.tomorrow = moment.utc().date(moment.utc().date() + 1);
     this.min = this.today.clone().year(2018).month(10).date(3).hour(11).minute(10);
