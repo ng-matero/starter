@@ -10,7 +10,7 @@ import { BreadcrumbComponent } from '@shared';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
+  styleUrl: './dialog.component.scss',
   standalone: true,
   imports: [BreadcrumbComponent, MatButtonModule],
 })
@@ -70,13 +70,11 @@ export class DialogNeptuneComponent {
 
 @Component({
   selector: 'dialog-neptune-iframe-dialog',
-  styles: [
-    `
-      iframe {
-        width: 800px;
-      }
-    `,
-  ],
+  styles: `
+    iframe {
+      width: 800px;
+    }
+  `,
   templateUrl: './dialog-neptune-iframe.html',
   standalone: true,
   imports: [MatDialogModule, MatButtonModule],
@@ -85,13 +83,11 @@ export class DialogNeptuneIFrameComponent {}
 
 @Component({
   selector: 'dialog-address-form',
-  styles: [
-    `
-      .demo-full-width {
-        width: 100%;
-      }
-    `,
-  ],
+  styles: `
+    .demo-full-width {
+      width: 100%;
+    }
+  `,
   templateUrl: 'dialog-address-form.html',
   standalone: true,
   imports: [MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
