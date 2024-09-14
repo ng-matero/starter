@@ -1,16 +1,15 @@
-@use '../style/transitions';
+@use '@angular/material' as mat;
 @use '../style/badge';
 
 .matero-sidemenu {
-  width: calc(var(--sidenav-width) - 1px); // subtract border width
   padding: 0;
   margin: 0;
   list-style: none;
 
   .menu-item {
-    display: block;
-    height: auto;
-    padding: 0;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    will-change: transform; // fix expansion in Safari
 
     >.menu-heading {
       &:hover,
@@ -20,7 +19,7 @@
     }
 
     &.active {
-      > .menu-heading {
+      >.menu-heading {
         color: var(--sidemenu-active-heading-text-color);
         background-color: var(--sidemenu-active-heading-background-color);
 
@@ -38,56 +37,79 @@
         transform: rotate(-180deg);
       }
     }
-  }
 
-  &.submenu {
-    padding-top: 0;
-    overflow: hidden;
+    &:has(.active)>.menu-heading {
+      color: var(--sidemenu-active-heading-text-color);
+    }
   }
 
   .menu-heading {
+    position: relative;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    width: 100%;
-    padding: 0.75rem 1rem;
+    width: calc(var(--sidenav-width) - 1rem);
+    padding: 0.75rem;
     font-size: inherit;
     color: inherit;
     text-decoration: none;
     cursor: pointer;
     background-color: transparent;
     border: none;
+    border-radius: 1.5rem;
     outline: none;
   }
 
-  .mat-icon.menu-icon {
-    width: 1.125rem;
-    height: 1.125rem;
-    margin-right: 1rem;
-    font-size: 1.125rem;
-    line-height: 1.125rem;
+  .menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    text-align: center;
 
     [dir='rtl'] & {
-      margin-right: auto;
-      margin-left: 1rem;
+      margin-right: 0;
+      margin-left: 0.75rem;
+    }
+
+    &.submenu-icon {
+      position: absolute;
+      left: 0.75rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      opacity: 0;
+
+      [dir='rtl'] & {
+        right: 0.75rem;
+        left: 0;
+      }
     }
   }
 
-  .mat-icon.menu-caret {
+  .menu-caret {
     display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
     text-align: center;
-    transition: transitions.fast-out-slow(transform);
+    transition: transform mat.$private-swift-ease-out-duration mat.$private-swift-ease-out-timing-function;
   }
 
   .menu-name {
     flex: 1;
+    overflow: hidden;
     text-align: initial;
+    text-overflow: ellipsis;
   }
 
+  .menu-icon,
   .menu-name,
   .menu-label,
   .menu-badge {
-    transition: transitions.swift-ease-out(opacity);
+    transition: opacity mat.$private-swift-ease-out-duration mat.$private-swift-ease-out-timing-function;
   }
 
   .menu-label,
@@ -100,10 +122,10 @@
   }
 
   &.level-1>li>.menu-heading {
-    padding-left: 3.125rem;
+    padding-left: 3rem;
 
     [dir='rtl'] & {
-      padding-right: 3.125rem;
+      padding-right: 3rem;
       padding-left: 1rem;
     }
   }

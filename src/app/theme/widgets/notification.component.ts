@@ -23,9 +23,15 @@ import { MatMenuModule } from '@angular/material/menu';
       </mat-nav-list>
     </mat-menu>
   `,
+  styles: `
+    :host ::ng-deep .mat-badge-content {
+      --mat-badge-background-color: #ef0000;
+      --mat-badge-text-color: #fff;
+    }
+  `,
   standalone: true,
   imports: [MatBadgeModule, MatButtonModule, MatIconModule, MatListModule, MatMenuModule],
 })
 export class NotificationComponent {
-  messages = ['Server Error Reports', 'Server Error Reports', 'Server Error Reports'];
+  messages = ['Server Error Reports 1', 'Server Error Reports 2', 'Server Error Reports 3'];
 }

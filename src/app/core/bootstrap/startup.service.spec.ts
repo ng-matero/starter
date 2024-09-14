@@ -17,32 +17,30 @@ describe('StartupService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [NgxPermissionsModule.forRoot()],
-    providers: [
+      imports: [NgxPermissionsModule.forRoot()],
+      providers: [
         {
-            provide: LocalStorageService,
-            useClass: MemoryStorageService,
+          provide: LocalStorageService,
+          useClass: MemoryStorageService,
         },
         {
-            provide: NgxPermissionsService,
-            useValue: {
-                loadPermissions: (permissions: string[]) => void 0,
-            },
+          provide: NgxPermissionsService,
+          useValue: {
+            loadPermissions: (permissions: string[]) => void 0,
+          },
         },
         {
-            provide: NgxRolesService,
-            useValue: {
-                flushRoles: () => void 0,
-                addRoles: (params: {
-                    ADMIN: string[];
-                }) => void 0,
-            },
+          provide: NgxRolesService,
+          useValue: {
+            flushRoles: () => void 0,
+            addRoles: (params: { ADMIN: string[] }) => void 0,
+          },
         },
         StartupService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-});
+      ],
+    });
     httpMock = TestBed.inject(HttpTestingController);
     startup = TestBed.inject(StartupService);
     tokenService = TestBed.inject(TokenService);

@@ -9,6 +9,7 @@ body {
   position: relative; // 1
   height: 100%;
   overflow: auto; // 2
+  background-color: var(--body-background-color);
 }
 
 body {
@@ -49,5 +50,15 @@ a {
 
   &:hover {
     color: var(--link-hover-color);
+  }
+}
+
+@media (width <=720px) {
+  .hide-small {
+    display: none !important;
+  }
+
+  .show-small {
+    display: block !important;
   }
 }

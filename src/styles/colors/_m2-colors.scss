@@ -23,16 +23,17 @@ $mat-colors: (
   blue-gray: mat.$m2-blue-gray-palette,
   white: white,
   black: black,
-  light: white,
+  light: rgba(white, .87),
   dark: rgba(black, .87),
 );
 
 @mixin generate-colors($prefix, $property) {
   @each $name, $value in $mat-colors {
+
     // If the value is a map, continue to each
-    @if meta.type-of($value) == 'map' {
+    @if meta.type-of($value)=='map' {
       @each $hue, $color in $value {
-        @if ($hue != 'contrast') {
+        @if ($hue !='contrast') {
           .#{$prefix + '-' + $name + '-' + $hue} {
             #{$property}: $color !important;
           }
@@ -40,7 +41,7 @@ $mat-colors: (
       }
     }
 
-    @if meta.type-of($value) == 'color' {
+    @if meta.type-of($value)=='color' {
       .#{$prefix + '-' + $name} {
         #{$property}: $value !important;
       }

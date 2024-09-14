@@ -1,4 +1,4 @@
-<page-header></page-header>
+<page-header />
 
 <div class="m-b-16">
   The following examples use the
@@ -16,18 +16,17 @@
       </mat-card-header>
 
       <mat-card-content>
-        <p>
+        <p class="m-t-0">
           Most common case is showing data from backend API and with mtx-select this is extremely
           simple since you can bind directly to observable when using angular <b> | async</b> pipe.
         </p>
         <mat-form-field class="w-full">
           <mat-label>select person</mat-label>
           <mtx-select [items]="(people$ | async)!" bindLabel="name" bindValue="id" autofocus
-            [(ngModel)]="selectedPersonId">
-          </mtx-select>
+            [(ngModel)]="selectedPersonId" />
         </mat-form-field>
         Selected: {{selectedPersonId}}
-        <mat-divider class="m-y-16"></mat-divider>
+        <mat-divider class="m-y-16" />
 
         <p>
           You can also set array of objects as items input.
@@ -35,11 +34,10 @@
         <mat-form-field class="w-full">
           <mat-label>select person</mat-label>
           <mtx-select [items]="people" bindLabel="name" bindValue="id"
-            [(ngModel)]="selectedPersonId2">
-          </mtx-select>
+            [(ngModel)]="selectedPersonId2" />
         </mat-form-field>
         Selected: {{selectedPersonId2}}
-        <mat-divider class="m-y-16"></mat-divider>
+        <mat-divider class="m-y-16" />
 
         <p>
           While array of objects is the most common items source, you may want to set simple array
@@ -47,18 +45,16 @@
         </p>
         <mat-form-field class="w-full">
           <mat-label>select person</mat-label>
-          <mtx-select [items]="simpleItems" [(ngModel)]="selectedSimpleItem">
-          </mtx-select>
+          <mtx-select [items]="simpleItems" [(ngModel)]="selectedSimpleItem" />
         </mat-form-field>
         Selected: {{selectedSimpleItem | json}}
-        <mat-divider class="m-y-16"></mat-divider>
+        <mat-divider class="m-y-16" />
 
         <p>
           If you have simple use case, you can omit items array and bind options directly in html
           using <b>ng-option</b> component.
         </p>
-        <button type="button" mat-raised-button color="primary" (click)="toggleDisabled()"
-          class="m-b-8">
+        <button class="m-b-8" type="button" mat-flat-button (click)="toggleDisabled()">
           Toggle option[1] disabled
         </button>
 
@@ -87,28 +83,26 @@
         <label>Default tags</label>
         <mat-form-field class="w-full">
           <mat-label>Select item</mat-label>
-          <mtx-select [items]="[]" [addTag]="true" [(ngModel)]="selectedCompany">
-          </mtx-select>
+          <mtx-select [items]="[]" [addTag]="true" [(ngModel)]="selectedCompany" />
         </mat-form-field>
 
         <p>
           Selected value: {{selectedCompany | json}}
         </p>
-        <mat-divider class="m-y-16"></mat-divider>
+        <mat-divider class="m-y-16" />
 
         <label>Custom tags</label>
         <mat-form-field class="w-full">
           <mat-label>Select item</mat-label>
           <mtx-select [items]="companies" [addTag]="addTag" [hideSelected]="true" [multiple]="true"
-            bindLabel="name" [(ngModel)]="selectedCompanyCustom">
-          </mtx-select>
+            bindLabel="name" [(ngModel)]="selectedCompanyCustom" />
         </mat-form-field>
 
         <p>
           Selected value: {{selectedCompanyCustom | json}}
         </p>
 
-        <mat-divider class="m-y-16"></mat-divider>
+        <mat-divider class="m-y-16" />
 
         <label>Server side tags</label>
         <mat-form-field class="w-full">
@@ -122,14 +116,13 @@
           </mtx-select>
         </mat-form-field>
 
-        <mat-divider class="m-y-16"></mat-divider>
+        <mat-divider class="m-y-16" />
 
         <label>Tagging without dropdown. Press enter to add item</label>
         <mat-form-field class="w-full">
           <mat-label>Select item</mat-label>
           <mtx-select [items]="[]" [addTag]="true" [multiple]="true" [selectOnTab]="true"
-            [isOpen]="false">
-          </mtx-select>
+            [isOpen]="false" />
         </mat-form-field>
 
       </mat-card-content>
@@ -144,7 +137,7 @@
 
       <mat-card-content>
         <p>Test ng-select in a dialog.</p>
-        <button mat-raised-button color="primary" (click)="openDialog()">Open Dialog</button>
+        <button mat-flat-button (click)="openDialog()">Open Dialog</button>
       </mat-card-content>
     </mat-card>
   </div>

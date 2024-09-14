@@ -1,10 +1,16 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { mergeMap, of, throwError } from 'rxjs';
 
 @Injectable()
-export class DefaultInterceptor implements HttpInterceptor {
+export class ApiInterceptor implements HttpInterceptor {
   private readonly toast = inject(ToastrService);
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {

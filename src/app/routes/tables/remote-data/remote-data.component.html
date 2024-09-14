@@ -1,4 +1,4 @@
-<page-header class="bg-blue-600"></page-header>
+<page-header class="bg-cyan-50" />
 
 <form class="m-x--4">
   <mat-form-field class="m-x-4" appearance="outline">
@@ -22,8 +22,8 @@
     </mat-select>
   </mat-form-field>
 
-  <button class="m-x-4" mat-raised-button color="primary" (click)="search()">Search</button>
-  <button class="m-x-4" mat-raised-button color="warn" (click)="reset()">Reset</button>
+  <button class="m-x-4" mat-flat-button (click)="search()">Search</button>
+  <button class="m-x-4" mat-button color="warn" (click)="reset()">Reset</button>
 </form>
 
 <mtx-grid [data]="list"

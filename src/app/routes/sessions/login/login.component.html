@@ -1,7 +1,7 @@
 <div class="d-flex w-full h-full">
   <mat-card class="m-auto" style="max-width: 380px;">
     <mat-card-header class="m-b-24">
-      <mat-card-title>{{'login_title' | translate}}!</mat-card-title>
+      <mat-card-title>👋 {{'login_title' | translate}}!</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -41,14 +41,13 @@
           }
         </mat-form-field>
 
-        <mat-checkbox formControlName="rememberMe">{{'remember_me' | translate}}
-        </mat-checkbox>
+        <mat-checkbox formControlName="rememberMe">{{'remember_me' | translate}}</mat-checkbox>
 
-        <button class="w-full m-y-16" mat-raised-button color="primary"
-          [disabled]="!!loginForm.invalid" [loading]="isSubmitting"
-        (click)="login()">{{'login' | translate}}</button>
+        <button class="w-full m-y-16" mat-flat-button [disabled]="!!loginForm.invalid"
+          [loading]="isSubmitting" (click)="login()">{{'login' | translate}}</button>
 
-        <div>{{'have_no_account' | translate}}?
+        <div>
+          <span>{{'have_no_account' | translate}}? </span>
           <a routerLink="/auth/register">{{'create_one_account' | translate}}</a>
         </div>
       </form>

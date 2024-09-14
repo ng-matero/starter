@@ -1,14 +1,14 @@
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { BreadcrumbComponent, MAT_COLORS } from '@shared';
+import { PageHeaderComponent, M3_COLORS } from '@shared';
 
 @Component({
   selector: 'app-design-colors',
   templateUrl: './colors.component.html',
   styleUrl: './colors.component.scss',
   standalone: true,
-  imports: [KeyValuePipe, BreadcrumbComponent],
+  imports: [KeyValuePipe, PageHeaderComponent],
 })
 export class DesignColorsComponent implements OnInit {
   colors: { key: string; value: any }[] = [];
@@ -22,7 +22,7 @@ export class DesignColorsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const colors: { [k: string]: any } = MAT_COLORS;
+    const colors: { [k: string]: any } = M3_COLORS;
     for (const key of Object.keys(colors)) {
       this.colors.push({
         key,

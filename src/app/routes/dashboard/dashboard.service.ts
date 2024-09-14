@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { type ApexOptions } from 'apexcharts';
+import { ApexOptions } from 'apexcharts';
 
 export interface PeriodicElement {
   name: string;
@@ -24,31 +24,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 const MESSAGES = [
   {
-    img: 'assets/images/heros/1.jpg',
+    img: 'images/heros/1.jpg',
     subject: 'Hydrogen',
     content: `Cras sit amet nibh libero, in gravida nulla.
      Nulla vel metus scelerisque ante sollicitudin commodo.`,
   },
   {
-    img: 'assets/images/heros/2.jpg',
+    img: 'images/heros/2.jpg',
     subject: 'Helium',
     content: `Cras sit amet nibh libero, in gravida nulla.
      Nulla vel metus scelerisque ante sollicitudin commodo.`,
   },
   {
-    img: 'assets/images/heros/3.jpg',
+    img: 'images/heros/3.jpg',
     subject: 'Lithium',
     content: `Cras sit amet nibh libero, in gravida nulla.
      Nulla vel metus scelerisque ante sollicitudin commodo.`,
   },
   {
-    img: 'assets/images/heros/4.jpg',
+    img: 'images/heros/4.jpg',
     subject: 'Beryllium',
     content: `Cras sit amet nibh libero, in gravida nulla.
      Nulla vel metus scelerisque ante sollicitudin commodo.`,
   },
   {
-    img: 'assets/images/heros/6.jpg',
+    img: 'images/heros/6.jpg',
     subject: 'Boron',
     content: `Cras sit amet nibh libero, in gravida nulla.
      Nulla vel metus scelerisque ante sollicitudin commodo.`,
@@ -57,6 +57,8 @@ const MESSAGES = [
 
 @Injectable()
 export class DashboardService {
+  private http = inject(HttpClient);
+
   stats = [
     {
       title: 'Total Sales',
@@ -64,7 +66,7 @@ export class DashboardService {
       progress: {
         value: 50,
       },
-      color: 'bg-indigo-500',
+      color: 'bg-azure-50',
     },
     {
       title: 'Revenue',
@@ -72,7 +74,7 @@ export class DashboardService {
       progress: {
         value: 70,
       },
-      color: 'bg-blue-500',
+      color: 'bg-blue-50',
     },
     {
       title: 'Traffic',
@@ -80,7 +82,7 @@ export class DashboardService {
       progress: {
         value: 80,
       },
-      color: 'bg-green-500',
+      color: 'bg-green-50',
     },
     {
       title: 'New User',
@@ -88,7 +90,7 @@ export class DashboardService {
       progress: {
         value: 40,
       },
-      color: 'bg-teal-500',
+      color: 'bg-cyan-50',
     },
   ];
 
@@ -147,7 +149,7 @@ export class DashboardService {
       series: [
         {
           name: 'Weekly Revenue',
-          data: [20, 100, 40, 30, 50, 80, 33],
+          data: [30, 110, 50, 40, 60, 90, 45],
         },
       ],
       labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -165,8 +167,6 @@ export class DashboardService {
       colors: ['#FF4560'],
       markers: {
         size: 4,
-        colors: ['#fff'],
-        strokeColors: '#FF4560',
         strokeWidth: 2,
       },
       tooltip: {
@@ -188,8 +188,6 @@ export class DashboardService {
       },
     },
   ];
-
-  constructor(private http: HttpClient) {}
 
   getData() {
     return ELEMENT_DATA;

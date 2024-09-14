@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { MatSidenav, MatSidenavContent, MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NgProgressComponent } from 'ngx-progressbar';
+import { NgProgressbar } from 'ngx-progressbar';
+import { NgProgressRouter } from 'ngx-progressbar/router';
 import { Subscription, filter } from 'rxjs';
 
 import { AppSettings, SettingsService } from '@core';
@@ -34,7 +35,8 @@ const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
     RouterOutlet,
     BidiModule,
     MatSidenavModule,
-    NgProgressComponent,
+    NgProgressbar,
+    NgProgressRouter,
     HeaderComponent,
     TopmenuComponent,
     SidebarComponent,
@@ -62,7 +64,8 @@ export class AdminLayoutComponent implements OnDestroy {
 
   private isMobileScreen = false;
 
-  @HostBinding('class.matero-content-width-fix') get contentWidthFix() {
+  @HostBinding('class.matero-content-width-fix')
+  get contentWidthFix() {
     return (
       this.isContentWidthFixed &&
       this.options.navPos === 'side' &&
@@ -73,7 +76,8 @@ export class AdminLayoutComponent implements OnDestroy {
 
   private isContentWidthFixed = true;
 
-  @HostBinding('class.matero-sidenav-collapsed-fix') get collapsedWidthFix() {
+  @HostBinding('class.matero-sidenav-collapsed-fix')
+  get collapsedWidthFix() {
     return (
       this.isCollapsedWidthFixed &&
       (this.options.navPos === 'top' || (this.options.sidenavOpened && this.isOver))

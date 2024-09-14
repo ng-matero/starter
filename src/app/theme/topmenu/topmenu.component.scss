@@ -2,13 +2,15 @@
 @use '../style/badge';
 
 .matero-topmenu {
+  --mat-tab-header-divider-height: 0;
+  --mdc-text-button-label-text-color: var(--topmenu-text-color);
+
   position: sticky;
   z-index: 200;
   display: block;
   padding: 0.5rem;
   background-color: var(--topmenu-background-color);
-
-  @include mat.elevation(2);
+  backdrop-filter: blur(8px);
 
   .mat-mdc-button {
     padding: 0 1rem;
