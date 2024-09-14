@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { SanctumInterceptor } from './sanctum-interceptor';
 import { BASE_URL } from './base-url-interceptor';
@@ -21,13 +21,15 @@ describe('SanctumInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         { provide: BASE_URL, useValue: null },
         { provide: SANCTUM_PREFIX, useValue: null },
         { provide: HTTP_INTERCEPTORS, useClass: SanctumInterceptor, multi: true },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   });
 
   afterEach(() => httpMock.verify());

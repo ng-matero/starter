@@ -1,10 +1,11 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { NgxPermissionsModule, NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { LocalStorageService, MemoryStorageService } from '@shared/services/storage.service';
 import { admin, TokenService } from '@core/authentication';
 import { MenuService } from '@core/bootstrap/menu.service';
 import { StartupService } from '@core/bootstrap/startup.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('StartupService', () => {
   let httpMock: HttpTestingController;
@@ -16,28 +17,32 @@ describe('StartupService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NgxPermissionsModule.forRoot()],
-      providers: [
+    imports: [NgxPermissionsModule.forRoot()],
+    providers: [
         {
-          provide: LocalStorageService,
-          useClass: MemoryStorageService,
+            provide: LocalStorageService,
+            useClass: MemoryStorageService,
         },
         {
-          provide: NgxPermissionsService,
-          useValue: {
-            loadPermissions: (permissions: string[]) => void 0,
-          },
+            provide: NgxPermissionsService,
+            useValue: {
+                loadPermissions: (permissions: string[]) => void 0,
+            },
         },
         {
-          provide: NgxRolesService,
-          useValue: {
-            flushRoles: () => void 0,
-            addRoles: (params: { ADMIN: string[] }) => void 0,
-          },
+            provide: NgxRolesService,
+            useValue: {
+                flushRoles: () => void 0,
+                addRoles: (params: {
+                    ADMIN: string[];
+                }) => void 0,
+            },
         },
         StartupService,
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     httpMock = TestBed.inject(HttpTestingController);
     startup = TestBed.inject(StartupService);
     tokenService = TestBed.inject(TokenService);

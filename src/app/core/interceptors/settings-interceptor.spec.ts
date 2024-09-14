@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SettingsService } from '@core/bootstrap/settings.service';
 import { SettingsInterceptor } from './settings-interceptor';
 
@@ -12,9 +12,9 @@ describe('SettingsInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [{ provide: HTTP_INTERCEPTORS, useClass: SettingsInterceptor, multi: true }],
-    });
+    imports: [],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: SettingsInterceptor, multi: true }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     httpMock = TestBed.inject(HttpTestingController);
     http = TestBed.inject(HttpClient);
