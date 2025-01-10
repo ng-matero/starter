@@ -2490,15 +2490,19 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ngx-translate/core@^15.0.0":
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-15.0.0.tgz#0fe55b9bd47e75b03d1123658f15fb7b5a534f3c"
-  integrity sha512-Am5uiuR0bOOxyoercDnAA3rJVizo4RRqJHo8N3RqJ+XfzVP/I845yEnMADykOHvM6HkVm4SZSnJBOiz0Anx5BA==
+"@ngx-translate/core@^16.0.0":
+  version "16.0.4"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-16.0.4.tgz#8e17d6ed6b306803ed2eb19ab72a0fdb697f1d76"
+  integrity sha512-s8llTL2SJvROhqttxvEs7Cg+6qSf4kvZPFYO+cTOY1d8DWTjlutRkWAleZcPPoeX927Dm7ALfL07G7oYDJ7z6w==
+  dependencies:
+    tslib "^2.3.0"
 
-"@ngx-translate/http-loader@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-8.0.0.tgz#e02c25dbe33c6b1edee73e3654ab8a161572cdfb"
-  integrity sha512-SFMsdUcmHF5OdZkL1CHEoSAwbP5EbAOPTLLboOCRRoOg21P4GJx+51jxGdJeGve6LSKLf4Pay7BkTwmE6vxYlg==
+"@ngx-translate/http-loader@^16.0.0":
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-16.0.1.tgz#01219d623ea810fd36ba2911d1452975cd32a041"
+  integrity sha512-xJEOUpvs6Zfc8G4cmQmegFOEpfYSoplTHHoisPNrATXjRBjpaKsBaPOXlZsuFUW2XV00s16gIyI4+9z1XkO5bw==
+  dependencies:
+    tslib "^2.3.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -9524,10 +9528,10 @@ typed-assert@^1.0.8:
   resolved "https://registry.yarnpkg.com/typed-assert/-/typed-assert-1.0.9.tgz#8af9d4f93432c4970ec717e3006f33f135b06213"
   integrity sha512-KNNZtayBCtmnNmbo5mG47p1XsCyrx6iVqomjcZnec/1Y5GGARaxPs6r49RnSPeUP3YjNYiU9sQHAtY4BBvnZwg==
 
-typescript@~5.4.2:
-  version "5.4.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.5.tgz#42ccef2c571fdbd0f6718b1d1f5e6e5ef006f611"
-  integrity sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==
+typescript@~5.5.2:
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.5.4.tgz#d9852d6c82bad2d2eda4fd74a5762a8f5909e9ba"
+  integrity sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==
 
 ua-parser-js@^0.7.30:
   version "0.7.35"
