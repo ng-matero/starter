@@ -1,12 +1,7 @@
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { BASE_URL, BaseUrlInterceptor } from './base-url-interceptor';
+import { BASE_URL, baseUrlInterceptor } from './base-url-interceptor';
 
 describe('BaseUrlInterceptor', () => {
   let httpMock: HttpTestingController;
@@ -23,8 +18,7 @@ describe('BaseUrlInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: BASE_URL, useValue: null },
-        { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withInterceptors([baseUrlInterceptor])),
         provideHttpClientTesting(),
       ],
     });
@@ -35,16 +29,16 @@ describe('BaseUrlInterceptor', () => {
   it('should not prepend base url when base url is empty', () => {
     setBaseUrl(null);
 
-    http.get('/me').subscribe(data => expect(data).toEqual({ success: true }));
+    http.get('/user').subscribe(data => expect(data).toEqual({ success: true }));
 
-    httpMock.expectOne('/me').flush({ success: true });
+    httpMock.expectOne('/user').flush({ success: true });
   });
 
   it('should prepend base url when request url does not has http scheme', () => {
     setBaseUrl(baseUrl);
 
-    http.get('./me').subscribe(data => expect(data).toEqual({ success: true }));
-    httpMock.expectOne(baseUrl + '/me').flush({ success: true });
+    http.get('./user').subscribe(data => expect(data).toEqual({ success: true }));
+    httpMock.expectOne(baseUrl + '/user').flush({ success: true });
 
     http.get('').subscribe(data => expect(data).toEqual({ success: true }));
     httpMock.expectOne(baseUrl).flush({ success: true });

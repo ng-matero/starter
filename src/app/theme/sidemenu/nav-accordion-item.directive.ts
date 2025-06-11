@@ -1,18 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Directive,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { NavAccordionDirective } from './nav-accordion.directive';
 
 @Directive({
   selector: '[navAccordionItem]',
   exportAs: 'navAccordionItem',
-  standalone: true,
+  host: {
+    '[class.expanded]': 'expanded',
+  },
 })
 export class NavAccordionItemDirective implements OnInit, OnDestroy {
   private readonly nav = inject(NavAccordionDirective);
@@ -21,7 +15,6 @@ export class NavAccordionItemDirective implements OnInit, OnDestroy {
   @Input() route = '';
   @Input() type: 'link' | 'sub' | 'extLink' | 'extTabLink' = 'link';
 
-  @HostBinding('class.expanded')
   @Input()
   get expanded() {
     return this.isExpanded;

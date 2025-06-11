@@ -14,7 +14,7 @@
   position: absolute;
   overflow-x: hidden;
   border-width: 0 !important;
-  transition: width mat.$private-swift-ease-out-duration mat.$private-swift-ease-out-timing-function;
+  transition-property: transform, width !important;
 }
 
 // Layout control
@@ -45,7 +45,7 @@
     .menu-label,
     .menu-badge,
     .menu-caret,
-    .matero-user-panel-info, {
+    .matero-user-panel-info {
       opacity: 0;
     }
 
@@ -54,7 +54,7 @@
     }
 
     .matero-user-panel-avatar {
-      transform: scale(.5);
+      transform: scale(0.5);
     }
 
     &:hover {
@@ -146,7 +146,7 @@
   position: relative;
   padding: var(--gutter);
 
-  .matero-header + &,
+  .matero-header+&,
   .matero-header-above &,
   .matero-navbar-top & {
     padding-top: 0;

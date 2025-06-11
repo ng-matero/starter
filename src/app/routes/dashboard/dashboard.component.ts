@@ -15,11 +15,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
+import { SettingsService } from '@core';
+import { MtxAlertModule } from '@ng-matero/extensions/alert';
 import { MtxProgressModule } from '@ng-matero/extensions/progress';
 import { Subscription } from 'rxjs';
-
-import { AppSettings, SettingsService } from '@core';
-import { BreadcrumbComponent } from '@shared';
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -28,7 +27,6 @@ import { DashboardService } from './dashboard.service';
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DashboardService],
-  standalone: true,
   imports: [
     RouterLink,
     MatButtonModule,
@@ -39,7 +37,7 @@ import { DashboardService } from './dashboard.service';
     MatTableModule,
     MatTabsModule,
     MtxProgressModule,
-    BreadcrumbComponent,
+    MtxAlertModule,
   ],
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -60,11 +58,43 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   notifySubscription = Subscription.EMPTY;
 
+  isShowAlert = true;
+
+  introducingItems = [
+    {
+      name: 'Acrodata GUI',
+      description: 'A JSON powered GUI for configurable panels.',
+      link: 'https://github.com/acrodata/gui',
+    },
+    {
+      name: 'Code Editor',
+      description: 'The CodeMirror 6 wrapper for Angular.',
+      link: 'https://github.com/acrodata/code-editor',
+    },
+    {
+      name: 'Watermark',
+      description: 'A watermark component that can prevent deletion.',
+      link: 'https://github.com/acrodata/watermark',
+    },
+    {
+      name: 'RnD Dialog',
+      description: 'Resizable and draggable dialog based on CDK dialog.',
+      link: 'https://github.com/acrodata/rnd-dialog',
+    },
+    {
+      name: 'NG DnD',
+      description: 'A toolkit for building complex drag and drop and very similar to react-dnd.',
+      link: 'https://github.com/ng-dnd/ng-dnd',
+    },
+  ];
+
+  introducingItem = this.introducingItems[this.getRandom(0, 4)];
+
   ngOnInit() {
     this.notifySubscription = this.settings.notify.subscribe(opts => {
       console.log(opts);
 
-      this.updateCharts(opts);
+      this.updateCharts();
     });
   }
 
@@ -85,40 +115,50 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.chart2 = new ApexCharts(document.querySelector('#chart2'), this.charts[1]);
     this.chart2?.render();
 
-    this.updateCharts(this.settings.options);
+    this.updateCharts();
   }
 
-  updateCharts(opts: Partial<AppSettings>) {
+  updateCharts() {
+    const isDark = this.settings.getThemeColor() == 'dark';
+
     this.chart1?.updateOptions({
       chart: {
-        foreColor: opts.theme === 'dark' ? '#ccc' : '#333',
+        foreColor: isDark ? '#ccc' : '#333',
       },
       tooltip: {
-        theme: opts.theme === 'dark' ? 'dark' : 'light',
+        theme: isDark ? 'dark' : 'light',
       },
       grid: {
-        borderColor: opts.theme === 'dark' ? '#5a5a5a' : '#e9e9e9',
+        borderColor: isDark ? '#5a5a5a' : '#e1e1e1',
       },
     });
 
     this.chart2?.updateOptions({
       chart: {
-        foreColor: opts.theme === 'dark' ? '#ccc' : '#333',
+        foreColor: isDark ? '#ccc' : '#333',
       },
       plotOptions: {
         radar: {
           polygons: {
-            strokeColors: opts.theme === 'dark' ? '#5a5a5a' : '#e9e9e9',
-            connectorColors: opts.theme === 'dark' ? '#5a5a5a' : '#e9e9e9',
+            strokeColors: isDark ? '#5a5a5a' : '#e1e1e1',
+            connectorColors: isDark ? '#5a5a5a' : '#e1e1e1',
             fill: {
-              colors: opts.theme === 'dark' ? ['#2c2c2c', '#222'] : ['#f8f8f8', '#fff'],
+              colors: isDark ? ['#2c2c2c', '#222'] : ['#f2f2f2', '#fff'],
             },
           },
         },
       },
       tooltip: {
-        theme: opts.theme === 'dark' ? 'dark' : 'light',
+        theme: isDark ? 'dark' : 'light',
       },
     });
+  }
+
+  onAlertDismiss() {
+    this.isShowAlert = false;
+  }
+
+  getRandom(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
