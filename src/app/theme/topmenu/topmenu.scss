@@ -1,0 +1,84 @@
+@use '@angular/material' as mat;
+
+.matero-topmenu {
+  --mat-tab-divider-height: 0;
+  --mat-button-text-label-text-color: var(--topmenu-text-color);
+
+  position: sticky;
+  z-index: 200;
+  display: block;
+  padding: 0.5rem;
+  background-color: var(--topmenu-background-color);
+  backdrop-filter: blur(8px);
+
+  .mat-mdc-button {
+    padding: 0 1rem;
+    white-space: nowrap;
+
+    &.active {
+      background-color: var(--topmenu-item-active-background-color);
+    }
+  }
+
+  .menu-icon,
+  .menu-caret,
+  .menu-name {
+    vertical-align: middle;
+  }
+
+  .mat-icon.menu-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-right: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+
+    [dir='rtl'] & {
+      margin-right: auto;
+      margin-left: 0.5rem;
+    }
+  }
+
+  .mat-icon.menu-caret {
+    margin-right: -0.5rem;
+
+    [dir='rtl'] & {
+      margin-right: auto;
+      margin-left: -0.5rem;
+    }
+  }
+
+  .menu-label,
+  .menu-badge {
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    background-color: #757575;
+    border-radius: 0.375rem;
+
+    [dir='rtl'] & {
+      margin-right: 0.5rem;
+      margin-left: auto;
+    }
+  }
+
+  .menu-badge {
+    border-radius: 50rem;
+  }
+
+  .mat-tab-nav-bar,
+  .mat-tab-header {
+    border-bottom: none;
+  }
+}
+
+.matero-topmenu-panel {
+  .mat-mdc-menu-item {
+    &.active {
+      color: var(--topmenu-dropdown-item-active-text-color);
+    }
+  }
+}

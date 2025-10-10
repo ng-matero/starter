@@ -1,0 +1,154 @@
+@use '@angular/material' as mat;
+@use '../../../styles/grid/breakpoints';
+
+.matero-container-wrap,
+.matero-container {
+  --mat-sidenav-content-background-color: transparent;
+
+  height: 100%;
+}
+
+.matero-sidenav {
+  --mat-sidenav-container-width: var(--sidenav-width);
+
+  position: absolute;
+  overflow-x: hidden;
+  border-width: 0 !important;
+  transition-property: transform, width !important;
+}
+
+// Layout control
+.matero-header-above {
+  .matero-container {
+    height: calc(100% - var(--mat-toolbar-standard-height)) !important;
+
+    @include breakpoints.bp-lt(small) {
+      & {
+        height: calc(100% - var(--mat-toolbar-mobile-height)) !important;
+      }
+    }
+  }
+
+  .matero-sidebar-main {
+    height: 100% !important;
+    padding-top: 0.5rem;
+  }
+}
+
+// Layout control
+.matero-sidenav-collapsed,
+.matero-sidenav-collapsed-fix {
+  .matero-sidenav {
+    width: var(--sidenav-collapsed-width);
+
+    .menu-name,
+    .menu-label,
+    .menu-badge,
+    .menu-caret,
+    .matero-user-panel-info {
+      opacity: 0;
+    }
+
+    .menu-icon.submenu-icon {
+      opacity: 1;
+    }
+
+    .matero-user-panel-avatar {
+      transform: scale(0.5);
+    }
+
+    &:hover {
+      width: var(--sidenav-width);
+
+      .menu-name,
+      .menu-label,
+      .menu-badge,
+      .menu-caret,
+      .matero-user-panel-info {
+        opacity: 1;
+      }
+
+      .menu-icon.submenu-icon {
+        opacity: 0;
+      }
+
+      .matero-user-panel-avatar {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+// Layout control
+.matero-sidenav-collapsed {
+  .matero-content {
+    margin-left: var(--sidenav-collapsed-width) !important;
+
+    [dir='rtl'] & {
+      margin-right: var(--sidenav-collapsed-width) !important;
+      margin-left: auto !important;
+    }
+  }
+
+  &[dir='rtl'] .matero-content {
+    margin-right: var(--sidenav-collapsed-width) !important;
+    margin-left: auto !important;
+  }
+}
+
+// Layout control
+.matero-navbar-top {
+  .matero-topmenu {
+    top: 0;
+  }
+
+  .matero-branding {
+    margin-left: 1rem;
+
+    [dir='rtl'] & {
+      margin-right: 1rem;
+      margin-left: auto;
+    }
+  }
+}
+
+// Layout control
+.matero-header-fixed {
+  .matero-header {
+    position: sticky;
+    top: 0;
+  }
+
+  .matero-topmenu {
+    top: var(--mat-toolbar-standard-height);
+
+    @include breakpoints.bp-lt(small) {
+      & {
+        top: var(--mat-toolbar-mobile-height);
+      }
+    }
+  }
+}
+
+// Fix the init content width
+.matero-content-width-fix {
+  .matero-content {
+    margin-left: var(--sidenav-width) !important;
+
+    [dir='rtl'] & {
+      margin-right: var(--sidenav-width) !important;
+      margin-left: auto !important;
+    }
+  }
+}
+
+.matero-page-content {
+  position: relative;
+  padding: var(--gutter);
+
+  .matero-header+&,
+  .matero-header-above &,
+  .matero-navbar-top & {
+    padding-top: 0;
+  }
+}

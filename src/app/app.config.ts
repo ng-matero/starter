@@ -1,11 +1,10 @@
-import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
   inject,
   provideAppInitializer,
 } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 
 import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
@@ -13,76 +12,56 @@ import { MAT_CARD_CONFIG } from '@angular/material/card';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { provideDateFnsDatetimeAdapter } from '@ng-matero/extensions-date-fns-adapter';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FORMLY_CONFIG, provideFormlyCore } from '@ngx-formly/core';
+import { withFormlyMaterial } from '@ngx-formly/material';
+import { provideTranslateService, TranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { provideToastr } from 'ngx-toastr';
 
 import {
-  apiInterceptor,
   BASE_URL,
-  baseUrlInterceptor,
-  errorInterceptor,
-  loggingInterceptor,
-  noopInterceptor,
-  settingsInterceptor,
+  interceptors,
   SettingsService,
   StartupService,
-  tokenInterceptor,
   TranslateLangService,
 } from '@core';
 import { environment } from '@env/environment';
-import { PaginatorI18nService } from '@shared';
+import { formlyConfigFactory, PaginatorI18nService } from '@shared';
 import { InMemDataService } from '@shared/in-mem/in-mem-data.service';
 import { routes } from './app.routes';
-import { FormlyConfigModule } from './formly-config';
-
-// Required for AOT compilation
-function TranslateHttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'i18n/', '.json');
-}
-
-// Http interceptor providers in outside-in order
-const interceptors = [
-  noopInterceptor,
-  baseUrlInterceptor,
-  settingsInterceptor,
-  tokenInterceptor,
-  apiInterceptor,
-  errorInterceptor,
-  loggingInterceptor,
-];
 
 export const appConfig: ApplicationConfig = {
   providers: [
     { provide: BASE_URL, useValue: environment.baseUrl },
     provideAppInitializer(() => inject(TranslateLangService).load()),
     provideAppInitializer(() => inject(StartupService).load()),
-    provideAnimationsAsync(),
     provideHttpClient(withInterceptors(interceptors)),
     provideRouter(
       routes,
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
       withComponentInputBinding()
     ),
-    provideToastr(),
+    provideHotToastConfig(),
     provideTranslateService({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: TranslateHttpLoaderFactory,
-        deps: [HttpClient],
-      },
+      loader: provideTranslateHttpLoader({ prefix: 'i18n/', suffix: '.json' }),
     }),
     importProvidersFrom(
       NgxPermissionsModule.forRoot(),
-      FormlyConfigModule.forRoot(),
       // 👇 ❌ This is only used for demo purpose, remove it in the realworld application
       InMemoryWebApiModule.forRoot(InMemDataService, {
         dataEncapsulation: false,
         passThruUnknownUrl: true,
       })
     ),
+    provideFormlyCore([...withFormlyMaterial()]),
+    {
+      provide: FORMLY_CONFIG,
+      useFactory: formlyConfigFactory,
+      deps: [TranslateService],
+      multi: true,
+    },
     {
       provide: MatPaginatorIntl,
       useFactory: (paginatorI18nSrv: PaginatorI18nService) => paginatorI18nSrv.getPaginatorIntl(),

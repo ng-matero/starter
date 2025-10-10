@@ -1,0 +1,44 @@
+@use 'sass:math';
+@use 'variables';
+
+@mixin make-grid-columns($i: 1, $list: '.col') {
+  @each $breakpoint, $infix in variables.$breakpoint-infixs {
+    $infix: if($infix == '', '', '-#{$infix}');
+
+    @if ($infix != '') {
+      $list: '#{$list}, .col#{$infix}';
+    }
+
+    @for $i from 1 through variables.$grid-columns {
+      $list: '#{$list}, .col#{$infix}-#{$i}';
+    }
+  }
+
+  #{$list} {
+    position: relative;
+    width: 100%;
+    padding-right: calc(var(--gutter) * 0.5);
+    padding-left: calc(var(--gutter) * 0.5);
+  }
+}
+
+@mixin loop-grid-columns($columns: $grid-columns, $breakpoint-infix: '') {
+  $infix: if($breakpoint-infix == '', '', '-#{$breakpoint-infix}');
+
+  .col#{$infix} {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+  }
+
+  @for $i from 1 through $columns {
+    .col#{$infix}-#{$i} {
+      flex: 0 0 math.percentage(math.div($i, $columns));
+      max-width: math.percentage(math.div($i, $columns));
+    }
+
+    .offset#{$infix}-#{$i} {
+      margin-left: math.percentage(math.div($i, $columns));
+    }
+  }
+}

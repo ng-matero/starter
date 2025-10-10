@@ -1,0 +1,28 @@
+@use '../../../styles/grid/breakpoints';
+
+.matero-sidebar-header {
+  overflow: hidden;
+
+  mat-toolbar {
+    width: var(--sidenav-width);
+    padding: 0 0.5rem;
+  }
+
+  // Remove redundant padding in the slide toggle
+  mat-slide-toggle .mdc-label {
+    display: none;
+  }
+}
+
+.matero-sidebar-main {
+  height: calc(100% - var(--mat-toolbar-standard-height));
+  padding: 0 0.5rem 0.5rem;
+  overflow: auto;
+  scrollbar-width: none;
+
+  @include breakpoints.bp-lt(small) {
+    & {
+      height: calc(100% - var(--mat-toolbar-mobile-height));
+    }
+  }
+}
