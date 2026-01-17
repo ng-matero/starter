@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, TemplateRef, inject, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MatBottomSheet,
@@ -49,14 +49,14 @@ export class BottomSheetDemo {
     ariaLabel: 'Example bottom sheet',
   };
 
-  @ViewChild(TemplateRef) template!: TemplateRef<any>;
+  readonly template = viewChild.required(TemplateRef);
 
   openComponent() {
     this._bottomSheet.open(BottomSheetOverviewExampleSheet, this.config);
   }
 
   openTemplate() {
-    this._bottomSheet.open(this.template, this.config);
+    this._bottomSheet.open(this.template(), this.config);
   }
 }
 
@@ -64,7 +64,7 @@ export class BottomSheetDemo {
   selector: 'bottom-sheet-overview-example-sheet',
   template: `
     <mat-nav-list>
-      @for (action of [1, 2, 3]; track action) {
+      @for (action of [1, 2, 3]; track $index) {
         <a href="#" mat-list-item (click)="handleClick($event)">
           <span matListItemTitle>Action {{ action }}</span>
           <span matListItemLine>Description</span>

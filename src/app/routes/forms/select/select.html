@@ -69,14 +69,14 @@
           <b>ng-option</b>
           component.
         </p>
-        <button class="m-b-8" type="button" mat-flat-button (click)="toggleDisabled()">
+        <button class="m-b-8" type="button" matButton="filled" (click)="toggleDisabled()">
           Toggle option[1] disabled
         </button>
 
         <mat-form-field class="w-full">
           <mat-label>Select car</mat-label>
           <mtx-select [(ngModel)]="selectedCarId">
-            @for (car of cars; track car) {
+            @for (car of cars; track $index) {
               <mtx-option [value]="car.id" [disabled]="car.disabled">{{ car.name }}</mtx-option>
             }
             <mtx-option [value]="'custom'">Custom</mtx-option>
@@ -164,7 +164,7 @@
 
       <mat-card-content>
         <p>Test ng-select in a dialog.</p>
-        <button mat-flat-button (click)="openDialog()">Open Dialog</button>
+        <button matButton="filled" (click)="openDialog()">Open Dialog</button>
       </mat-card-content>
     </mat-card>
   </div>

@@ -8,13 +8,13 @@ import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'app-notification',
   template: `
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button matIconButton [matMenuTriggerFor]="menu">
       <mat-icon matBadge="5" matBadgeColor="warn" aria-hidden="false">notifications</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
       <mat-nav-list>
-        @for (message of messages; track message) {
+        @for (message of messages; track $index) {
           <mat-list-item>
             <mat-icon class="m-x-16" matListItemIcon>info</mat-icon>
             <a matListItemTitle href="#">{{ message }}</a>

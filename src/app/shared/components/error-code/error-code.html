@@ -1,12 +1,12 @@
 <div class="matero-error-wrap">
-  <div class="matero-error-code">{{code}}</div>
-  @if (title) {
-    <div class="matero-error-title">{{title}}</div>
+  <div class="matero-error-code">{{ code() }}</div>
+  @if (title()) {
+    <div class="matero-error-title">{{ title() }}</div>
   }
-  @if (message) {
-    <div class="matero-error-message">{{message}}</div>
+  @if (message()) {
+    <div class="matero-error-message">{{ message() }}</div>
   }
   <div>
-    <a mat-raised-button color="primary" routerLink="/">Back to Home</a>
+    <a matButton="elevated" color="primary" routerLink="/">Back to Home</a>
   </div>
 </div>

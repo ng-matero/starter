@@ -28,13 +28,13 @@
       <a mat-list-item routerLink="../dual">Dual sidenavs example</a>
     </mat-nav-list>
     @for (f of filler; track f) {
-    <p class="demo-sidenav-filler">Filler content</p>
+      <p class="demo-sidenav-filler">Filler content</p>
     }
   </mat-sidenav>
 
   <mat-sidenav-content role="region">
     <button
-      mat-raised-button
+      matButton="elevated"
       aria-label="Close responsive sidenav example"
       color="primary"
       class="demo-sidenav-close"
@@ -43,7 +43,7 @@
       Close example
     </button>
     @for (f of filler; track f) {
-    <p class="demo-sidenav-filler">Filler content</p>
+      <p class="demo-sidenav-filler">Filler content</p>
     }
   </mat-sidenav-content>
 </mat-sidenav-container>
